@@ -1,0 +1,6 @@
+07/02/2023 7:38:57 pm : Error on Get TokenByIdAndType By ID | response: {"StatusCode":500,"Result":"The operation has timed out"}
+-----------------------------------------------------------------------------
+
+07/02/2023 7:42:53 pm : Error on Get TokenByIdAndType By ID | response: {"StatusCode":500,"Result":"The request was aborted: The operation has timed out."}
+-----------------------------------------------------------------------------
+

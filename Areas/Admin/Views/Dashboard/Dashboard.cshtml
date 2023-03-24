@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Dashboard.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="container mt-2">
+    <div class="row mb-3">
+        <div class="col-lg mb-3">
+            <div class="card card-total-s-r-form">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-white">
+                            <div class="">Total Submitted Referral Form</div>
+                            <h4 class="total-s-r-form-text text-end">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg mb-3">
+            <div class="card card-total-r-f-pending">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-white">
+                            <div class="">Total Referral Form Pending</div>
+                            <h4 class="total-r-f-pending-text text-end">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg mb-3">
+            <div class="card card-total-r-f-completed">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-white">
+                            <div class="">Total Referral Form Completed</div>
+                            <h4 class="total-r-f-completed-text text-end">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <canvas id="myChart" width="400" height="150"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+
+            url: '/dashboard/get-total-referral-form-count',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+            method: 'GET',
+            //data: {
+            //    DateFrom: _DateFrom,
+            //    DateTo: _DateTo,
+            //    SelectBy: selectBy,
+
+            //},
+        }).then(function (res) {
+
+            $(".total-s-r-form-text").text(res.TSRForm);
+            $(".total-r-f-pending-text").text(res.TSRFormPending);
+            $(".total-r-f-completed-text").text(res.TSRFormCompleted);
+            let labels = [];
+            labels[0] = "Total Submitted Referral Form";
+            labels[1] = "Total Referral Form Pending";
+            labels[2] = "Total Referral Form Completed";
+            let data = [];
+            data[0] = res.TSRForm;
+            data[1] = res.TSRFormPending;
+            data[2] = res.TSRFormCompleted;
+            doughnutChartJs('myChart', 'doughnut', labels, 'total # transaction', data);
+        }).fail(function (err) {
+
+            console.log(err);
+
+        });
+    });
+</script>

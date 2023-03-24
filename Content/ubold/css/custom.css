@@ -1,0 +1,76 @@
+﻿.apex-charts text {
+    display: none !important;
+}
+
+#sidebar-menu .menuitem-active .active {
+    color: #44cf9c;
+}
+
+.form-control:disabled, .form-control[disabled] {
+    background-color: #d3d3d3 !important;
+    opacity: 1;
+}
+
+#sidebar-menu > ul > li > a:active, #sidebar-menu > ul > li > a:focus, #sidebar-menu > ul > li > a:hover {
+    color: #44cf9c;
+}
+
+.nav-second-level li a:focus, .nav-second-level li a:hover {
+    color: #44cf9c;
+}
+
+#sidebar-menu .menuitem-active > a {
+    color: #44cf9c;
+}
+
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top {
+    z-index: 11111 !important;
+}
+
+.completed-status {
+    background-color: rgb(129, 212, 82);
+}
+
+.looking-for-rider {
+    background-color: rgb(68,162,249);
+}
+
+.on-the-way-to-store {
+    background-color: rgb(247,225,88);
+}
+
+.on-the-way-to-customer {
+    background-color: rgb(241,151,55);
+}
+
+.waiting-for-payment {
+    background-color: rgb(103,100,207);
+}
+
+/*for pre-upload image*/
+.image_container {
+    height: 120px;
+    width: 100px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+    .image_container img {
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+    }
+
+    .image_container span {
+        top: -6px;
+        right: 8px;
+        color: red;
+        font-size: 28px;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+.message-text-area {
+    resize: none;
+}

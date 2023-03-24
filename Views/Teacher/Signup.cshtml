@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<div class="container-fluid mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form class="login-container card h-auto bg-white rounded-lg p-5">
+                <div id="box">
+                    <p id="flashlight">
+                        <span id="light">Student Consultation Ticketing</span>
+                        <span id="light">And Tracking System</span>
+                    </p>
+                </div>
+                <h3 class="text-center">Teacher Signup</h3>
+                <div class="row">
+                    <div class="col text-center">
+                        <img id="myImage" src="~/Images/default-profile.png" class="img-thumbnail border border-secondary rounded-circle" />
+                    </div>
+                </div>
+                <span class="error-text"><p class="text-center client-image-error"></p></span>
+                <div class="row justify-content-center text-center">
+                    <div class="col text-center">
+                        <p class="text-center">
+                            <label for="File1" class="btn btn-primary text-white mt-2">Upload picture<span class="text-danger">*</span></label>
+                        </p>
+                        <input id="File1" type="file" name="clientImage" style="visibility:hidden;" onchange="showImage.call(this)" accept="image/*" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="username" class="mb-1">Username<span class="text-danger">*</span></label>
+                        <input id="username" type="text" class="pl-1 form-control border" onkeypress="stringLimiter(event, 'username', 20)" placeholder="Username" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="email" class="mb-1">Email<span class="text-danger">*</span></label>
+                        <input id="email" type="email" class="pl-1 form-control border" placeholder="Email" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="fullName" class="mb-1">Full-name<span class="text-danger">*</span></label>
+                        <input id="fullName" type="text" class="pl-0 form-control border" placeholder="Full-name" onkeypress="stringLimiter(event, 'fullName', 255)" />
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col">
+                        <label>Birthdate<span class="text-danger">*</span></label>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md mb-2">
+                        <select class="form-control" id="month">
+                            <option value="" selected>Select Month</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md mb-2">
+                        <select class="form-control" id="day">
+                            <option value="" selected>Select Day</option>
+                            @for (var dayCtr = 1; dayCtr <= 31; dayCtr++)
+                            {
+
+                                <option value="@dayCtr">@dayCtr</option>
+
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md mb-2">
+                        <select class="form-control" id="year">
+                            <option value="" selected>Select Year</option>
+                            @for (var yearCtr = DateTime.Now.Year; yearCtr >= 1900; yearCtr--)
+                            {
+
+                                <option value="@yearCtr">@yearCtr</option>
+
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="APJobDescription" class="h6"><nobr>Job Description : </nobr></label>
+                        <select id="APJobDescription" class="form-control">
+                            <option disabled selected>Select</option>
+                            <option value="Guidance Councelor">Guidance Councelor</option>
+                            <option value="Teacher">Teacher</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="password" class="mb-1">Password<span class="text-danger">*</span></label>
+                        <input id="password" type="password" class="pl-1 form-control border" placeholder="Password" onkeypress="stringLimiter(event, 'password', 20)" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="confirmPassword" class="mb-1">Confirm Password<span class="text-danger">*</span></label>
+                        <input id="confirmPassword" type="password" class="pl-1 form-control border" placeholder="Confirm Password" onkeypress="stringLimiter(event, 'confirmPassword', 20)" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-center">
+                        <button id="btnSignup" type="submit" class="btn btn-primary px-4">Sign up</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function showImage() {
+        if (this.files && this.files[0]) {
+            let obj = new FileReader();
+            const file = this.files[0];
+            const fileType = file['type'];
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (!validImageTypes.includes(fileType)) {
+
+            }
+            else {
+                obj.onload = function (data) {
+                    var image = document.getElementById("myImage");
+                    image.src = data.target.result;
+                }
+                obj.readAsDataURL(this.files[0]);
+            }
+
+        }
+    }
+</script>
+
+<script>
+    $(function () {
+
+        $("body").addClass("s-o-red-1");
+        const api = "@ViewBag.ApiLink";
+        const url = api + 'api/create-new-profile';
+
+        let returnUrl = "@ViewBag.ReturnUrl";
+        $('#btnSignup').click(function (e) {
+            e.preventDefault();
+            var data = new FormData();
+            var imgupload = $("#File1").get(0).files;
+            var _username = $.trim($('#username').val());
+            var _email = $.trim($('#email').val());
+            var _fullName = $.trim($('#fullName').val());
+            var _month = $.trim($('#month').val());
+            var _day = $.trim($('#day').val());
+            var _year = $.trim($('#year').val());
+            var _apJobDescription = $.trim($('#APJobDescription').val());
+            var _password = $.trim($('#password').val());
+            var _confirmPassword = $.trim($('#confirmPassword').val());
+
+            if (imgupload.length == 0 || _username == '' || _email == '' || _fullName == '' || _month == '' || _day == '' || _year == '' || _password == '' || _confirmPassword == '') {
+                Swal.fire({
+                    title: 'Please fill-up all required fields.',
+                    type: 'info',
+                    toast: true,
+                    timer: 1500,
+                    position: 'center'
+                });
+                return false;
+            }
+
+            if (_password != _confirmPassword) {
+                Swal.fire({
+                    title: 'Password and Confirm Password is not match.',
+                    type: 'info',
+                    toast: true,
+                    timer: 1500,
+                    position: 'center'
+                });
+                return false;
+            }
+
+            if (imgupload.length > 0) {
+
+                data.append("Imgpathsave", imgupload[0]);
+
+            }
+
+            data.append("AccountType", "teacher");
+            data.append("Username", _username);
+            data.append("Email", _email);
+            data.append("FullName", _fullName);
+            data.append("Month", _month);
+            data.append("Day", _day);
+            data.append("Year", _year);
+            data.append("APJobDescription", _apJobDescription);
+            data.append("Password", _password);
+
+            showLoader("Creating an teacher account..");
+
+            $.ajax({
+
+                url: url,
+/*                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('teacher_token') },*/
+                type: "post",
+                contentType: false,
+                processData: false,
+                data: data
+            }).then(function (res) {
+
+                toastr.success(res);
+                let signupTimeoutValue = null;
+                clearTimeout(signupTimeoutValue);
+
+                signupTimeoutValue = setTimeout(() => {
+
+                    window.location.replace("/Teacher/Login");
+
+                }, 1500);
+
+            }).fail(function (err) {
+
+                console.log(err);
+                toastr.error("Something went wrong");
+
+            });
+
+        });
+    })
+</script>

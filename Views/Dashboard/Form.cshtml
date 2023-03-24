@@ -1,0 +1,409 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<form class="container form-container border p-4 my-4">
+    <div class="container border mb-2">
+        <div class="row">
+
+            <div class="col-md-3">
+                <label class="mb-1" for="StudentName">NAME OF THE STUDENT : </label>
+                <input type="text" class="form-control form-control-sm" id="StudentName" />
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+                <label class="mb-1" for="date">DATE : </label>
+                <input type="date" class="form-control form-control-sm" id="DateCreated" />
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <label class="mb-1" for="ReferredBy">REFERRED BY : </label>
+                <input type="text" class="form-control form-control-sm" id="StudentReferredBy" />
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+                <label class="mb-1" for="LnS">LEVEL & SECTION : </label>
+                <input type="text" class="form-control form-control-sm" id="StudentLevelSection" />
+            </div>
+        </div>
+
+        <div class="row mb-2">
+
+            <div class="col-md-3">
+                <label class="mb-1" for="RFR">REASON FOR REFERRAL : </label>
+                <input type="text" class="form-control form-control-sm" id="StudentReasonForRefferal" />
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="container border mb-2">
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <p class="text-center h5"><span>Moods/Behaviors</span></p>
+                <div class="d-flex flex-column align-items-baseline py-2">
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-mood-behaviors" id="AnxiousWorried" value="Anxious/worried">
+                        <label for="AnxiousWorried" class="m-0 text-nowrap">Anxious/worried</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-mood-behaviors" id="Depressed" value="Depressed" />
+                        <label for="Depressed" class="m-0 text-nowrap">Depressed</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox"
+                               class="mx-1 cb-mood-behaviors"
+                               id="EatingDisorder"
+                               value="Eating Disorder" />
+                        <label for="EatingDisorder" class="m-0 text-nowrap">Eating Disorder</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox"
+                               class="mx-1 cb-mood-behaviors"
+                               id="BodyImageConcerns"
+                               value="Body image concerns" />
+                        <label for="BodyImageConcerns" class="m-0 text-nowrap">Body image concerns</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox"
+                               class="mx-1 cb-mood-behaviors"
+                               id="HyperactiveInattentive"
+                               value="Hyperactive/Inattentive" />
+                        <label for="HyperactiveInattentive" class="m-0 text-nowrap">Hyperactive/Inattentive</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-mood-behaviors" id="ShyWithdraw" value="Shy/Withdraw" />
+                        <label for="ShyWithdraw" class="m-0 text-nowrap">Shy/Withdraw</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox"
+                               class="mx-1 cb-mood-behaviors"
+                               id="LowSelf-esteem"
+                               value="Low Self-esteem" />
+                        <label for="LowSelf-esteem" class="m-0 text-nowrap">Low Self-esteem</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox"
+                               class="mx-1 cb-mood-behaviors"
+                               id="AggresiveBehaviors"
+                               value="Aggresive Behaviors" />
+                        <label for="AggresiveBehaviors" class="m-0 text-nowrap">Aggresive Behaviors</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-mood-behaviors" id="Stealing" value="Stealing" />
+                        <label for="Stealing" class="m-0 text-nowrap">Stealing</label>
+                    </div>
+                    <div class="d-flex align-items-start justify-content-start my-1">
+                        <label for="Others" class="m-0 pr-1 text-nowrap">Other :</label>
+                        <textarea class="form-control" id="StudentMoodBehaviorOthers" placeholder="Optional"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <p class="text-center h5"><span>Academic Concerns</span></p>
+                <div class="d-flex flex-column align-items-baseline py-2">
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="HWNTI" value="Homework not turned in/incomplete" />
+                        <label for="HWNTI" class="m-0 text-nowrap">Homework not turned in/incomplete</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="LW" value="Low test/assignment grades" />
+                        <label for="LW" class="m-0 text-nowrap">Low test/assignment grades</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="PCP" value="Poor classroom performance" />
+                        <label for="PCP" class="m-0 text-nowrap">Poor classroom performance</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="SIC" value="Sleeping in class/always tired" />
+                        <label for="SIC" class="m-0 text-nowrap">Sleeping in class/always tired</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="SCIG" value="Sudden change in grades" />
+                        <label for="SCIG" class="m-0 text-nowrap">Sudden change in grades</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="FTOA" value="Frequently tardy of absent" />
+                        <label for="FTOA" class="m-0 text-nowrap">Frequently tardy of absent</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-academic-concerns" id="NewStudent" value="New student" />
+                        <label for="NewStudent" class="m-0 text-nowrap">New student</label>
+                    </div>
+                    <div class="d-flex align-items-start justify-content-start my-1">
+                        <label for="Others" class="m-0 pr-1 text-nowrap">Other :</label>
+                        <textarea class="form-control" id="StudentAcademicConcernOthers" placeholder="Optional"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <p class="text-center h5"><span>Relationship</span></p>
+                <div class="d-flex flex-column align-items-baseline py-2">
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-relationship" id="DifficultyMakingFriends" value="Difficulty making friends" />
+                        <label for="DifficultyMakingFriends" class="m-0 text-nowrap">Difficulty making friends</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-relationship" id="PSS" value="Poor social skills" />
+                        <label for="PSS" class="m-0 text-nowrap">Poor social skills</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-relationship" id="PWF" value="Problem with friends" />
+                        <label for="PWF" class="m-0 text-nowrap">Problem with friends</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-relationship" id="BGFI" value="Boy/Girl friend issues" />
+                        <label for="BGFI" class="m-0 text-nowrap">Boy/Girl friend issues</label>
+                    </div>
+                    <div class="d-flex align-items-start justify-content-start my-1">
+                        <label for="Others" class="m-0 pr-1 text-nowrap">Other :</label>
+                        <textarea class="form-control" id="StudentRelationshipOthers" placeholder="Optional"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <p class="text-center h5"><span>Home Concerns</span></p>
+                <div class="d-flex flex-column align-items-baseline py-2">
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="FWFM" value="Fighting with family members" />
+                        <label for="FWFM" class="m-0 text-nowrap">Fighting with family members</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="IDITF" value="Illness/death in the family" />
+                        <label for="IDITF" class="m-0 text-nowrap">Illness/death in the family</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="PDS" value="Parents divorced/separated" />
+                        <label for="PDS" class="m-0 text-nowrap">Parents divorced/separated</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="SuspectedAbuse" value="Suspected abuse" />
+                        <label for="SuspectedAbuse" class="m-0 text-nowrap">Suspected abuse</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="SSA" value="Suspected substance abuse" />
+                        <label for="SSA" class="m-0 text-nowrap">Suspected substance abuse</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-start mb-1">
+                        <input type="checkbox" class="mx-1 cb-student-home-concerns" id="ParentRequest" value="Parent request" />
+                        <label for="ParentRequest" class="m-0 text-nowrap">Parent request</label>
+                    </div>
+                    <div class="d-flex align-items-start justify-content-start my-1">
+                        <label for="Others" class="m-0 pr-1 text-nowrap">Other :</label>
+                        <textarea class="form-control" id="StudentHomeConcernsOthers" placeholder="Optional"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border mb-2 p-2 my-2">
+        <div class="row">
+            <div class="col-md text-right">
+                <button id="submitForm" type="submit" class="btn btn-success mr-2">SUBMIT FORM</button>
+                <button type="submit" class="btn btn-danger">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        let cbMoodBehaviors = "";
+        let cbAcademicConcerns = "";
+        let cbAcademicRelationship = "";
+        let cbStudentHomeConcerns = "";
+
+        const url = '/dashboard/referral-form';
+
+        onChangeCheckbox();
+
+        $("#submitForm").on("click", function (e) {
+            e.preventDefault();
+
+
+            const formData = new FormData();
+            const obj = new Object();
+            obj.StudentName = $.trim($("#StudentName").val());
+            obj.DateTimeCreated = $.trim($("#DateCreated").val());
+            obj.StudentReferredBy = $.trim($("#StudentReferredBy").val());
+            obj.StudentLevelSection = $.trim($("#StudentLevelSection").val());
+            obj.StudentReasonForRefferal = $.trim($("#StudentReasonForRefferal").val());
+            obj.StudentMoodBehaviorOthers = $.trim($("#StudentMoodBehaviorOthers").val());
+            obj.StudentAcademicConcernOthers = $.trim($("#StudentAcademicConcernOthers").val());
+            obj.StudentRelationshipOthers = $.trim($("#StudentRelationshipOthers").val());
+            obj.StudentHomeConcernsOthers = $.trim($("#StudentHomeConcernsOthers").val());
+
+            obj.StudentMoodBehaviors = cbMoodBehaviors;
+            obj.StudentAcademicConcerns = cbAcademicConcerns;
+            obj.StudentRelationship = cbAcademicRelationship;
+            obj.StudentHomeConcerns = cbStudentHomeConcerns;
+
+            formData.append('StudentName', obj.StudentName);
+            formData.append('DateTimeCreated', obj.DateTimeCreated);
+            formData.append('StudentReferredBy', obj.StudentReferredBy);
+            formData.append('StudentLevelSection', obj.StudentLevelSection);
+            formData.append('StudentReasonForRefferal', obj.StudentReasonForRefferal);
+            formData.append('StudentMoodBehaviorOthers', obj.StudentMoodBehaviorOthers);
+            formData.append('StudentAcademicConcernOthers', obj.StudentAcademicConcernOthers);
+            formData.append('StudentRelationshipOthers', obj.StudentRelationshipOthers);
+            formData.append('StudentHomeConcernsOthers', obj.StudentHomeConcernsOthers);
+            formData.append('StudentMoodBehaviors', obj.StudentMoodBehaviors);
+            formData.append('StudentAcademicConcerns', obj.StudentAcademicConcerns);
+            formData.append('StudentRelationship', obj.StudentRelationship);
+            formData.append('StudentHomeConcerns', obj.StudentHomeConcerns);
+
+            showLoader("Creating an referral form..");
+
+            $.ajax({
+                url: url,
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('student_token') },
+                contentType: false,
+                processData: false,
+                type: "POST",
+                data: formData,
+
+            }).then(function (res) {
+
+                toastr.success("Record Saved");
+                let formTimeoutValue = null;
+                clearTimeout(formTimeoutValue);
+
+                formTimeoutValue = setTimeout(() => {
+
+                    window.location.replace("/Dashboard/Referral-form");
+
+                }, 1500);
+
+            }).fail(function (err) {
+
+                console.log(err);
+                toastr.error("Something went wrong");
+
+            });
+
+        });
+
+        function onChangeCheckbox() {
+
+            $("input.cb-mood-behaviors").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let checked = $(this).is(":checked");
+                let checkBoxValue = $(this).val();
+
+
+                if (checked) {
+
+                    cbMoodBehaviors += checkBoxValue + ",";
+
+                } else {
+
+                    cbMoodBehaviors = cbMoodBehaviors.replace(checkBoxValue + ",", "");
+
+                }
+
+            });
+
+            $("input.cb-academic-concerns").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let checked = $(this).is(":checked");
+                let checkBoxValue = $(this).val();
+
+
+                if (checked) {
+
+                    cbAcademicConcerns += checkBoxValue + ",";
+
+                } else {
+
+                    cbAcademicConcerns = cbAcademicConcerns.replace(checkBoxValue + ",", "");
+
+                }
+
+            });
+
+            $("input.cb-student-relationship").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let checked = $(this).is(":checked");
+                let checkBoxValue = $(this).val();
+
+
+                if (checked) {
+
+                    cbAcademicRelationship += checkBoxValue + ",";
+
+                } else {
+
+                    cbAcademicRelationship = cbAcademicRelationship.replace(checkBoxValue + ",", "");
+
+                }
+
+            });
+
+            $("input.cb-student-home-concerns").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let checked = $(this).is(":checked");
+                let checkBoxValue = $(this).val();
+
+
+                if (checked) {
+
+                    cbStudentHomeConcerns += checkBoxValue + ",";
+
+                } else {
+
+                    cbStudentHomeConcerns = cbStudentHomeConcerns.replace(checkBoxValue + ",", "");
+
+                }
+
+            });
+
+        }
+
+    });
+</script>

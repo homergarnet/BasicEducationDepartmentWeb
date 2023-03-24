@@ -1,0 +1,433 @@
+﻿@model IEnumerable<BasicEducationDepartmentWeb.Models.DTO.StudentReferralFormDTO>
+
+
+@if (Model.Count() == 0)
+{
+
+}
+else
+{
+    foreach (var row in Model)
+    {
+        <tr>
+            <td>@row.StudentTrackingNumber</td>
+            <td>@row.StudentName</td>
+            <td>@row.APEmailAddress</td>
+            <td>
+                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+                {
+
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Mood Behaviors</a>
+
+                }
+
+                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+                {
+
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Academic Concerns</a>
+
+                }
+
+                @if (row.StudentRelationship != null || row.StudentRelationship != "")
+                {
+
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Relationship</a>
+
+                }
+
+                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+                {
+
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Home Concerns</a>
+
+                }
+            </td>
+            <td>
+                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+                {
+
+                    <p>@row.StudentMoodBehaviors</p>
+
+                }
+
+                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+                {
+
+                    <p>@row.StudentAcademicConcerns</p>
+
+                }
+
+                @if (row.StudentRelationship != null || row.StudentRelationship != "")
+                {
+
+                    <p>@row.StudentRelationship</p>
+
+                }
+
+                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+                {
+
+                    <p>@row.StudentHomeConcerns</p>
+
+                }
+            </td>
+            <td>
+                @if (row.StudentStatus == null || row.StudentStatus == "")
+                {
+                    <p>Pending</p>
+                }
+                else
+                {
+                    <p>@row.StudentStatus</p>
+                }
+            </td>
+            <td>@row.StudentAcknowledgeByName</td>
+        </tr>
+    }
+}
+<script>
+    $(function () {
+
+        $.ajax({
+            url: '/dashboard/get-admin-by-id',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+            method: 'GET',
+            //data: {
+            //    DateFrom: _DateFrom,
+            //    DateTo: _DateTo,
+            //    SelectBy: selectBy,
+
+            //},
+
+        }).done(function (res) {
+
+            $("input#StudentReferredTo").val(res.APName);
+
+        }).fail(function (err) {
+
+            console.log("error: ", err)
+
+        });
+
+        let cbStudentHisHerStatus = "";
+        let studentReferralId = 0;
+        let studentTrackingNumber = "";
+        onChangeCheckbox();
+        $("a.category-href").on("click", function (e) {
+            e.preventDefault();
+            
+            $(".cb-mood-behaviors").prop("checked", false);
+            $(".cb-academic-concerns").prop("checked", false);
+            $(".cb-student-relationship").prop("checked", false);
+            $(".cb-student-home-concerns").prop("checked", false);
+            $(".cb-his-her-status").prop("checked", false);
+            $("#StudentTrackingNumber").text("");
+            studentReferralId = $(this).attr('href');
+
+            $.ajax({
+
+                url: '/dashboard/get-student-referral-form-by-id',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                data: {
+
+                    StudentReferralID: studentReferralId,
+
+                },
+            }).then(function (res) {
+                console.log("res: ", res)
+                cbStudentHisHerStatus = "";
+                cbStudentHisHerStatus = res.StudentHisHerStatus;
+                $("#StudentName").text(res.StudentName);
+                studentName = (res.StudentName);
+                if (res.StudentName != null) {
+                    const studentNameArr = res.StudentName.split(" ", 2);
+                    let studentNameFirstChar = "";
+                    studentNameArr.forEach((item, index) => {
+
+                        studentNameFirstChar += item.charAt(0);
+
+                    });
+
+                    studentTrackingNumber = "bed-" + studentNameFirstChar + "-" + studentReferralId;
+                } else {
+
+                    studentTrackingNumber = "bed-n-a" + "-" + studentReferralId;
+
+                }
+
+                $("#DateTimeCreated").text(res.DateTimeCreated);
+                $("#StudentReferredBy").text(res.StudentReferredBy);
+                $("#StudentLevelSection").text(res.StudentLevelSection);
+                $("#StudentReasonForReferral").text(res.StudentReasonForReferral);
+                $("#StudentMoodBehaviorOthers").text(res.StudentMoodBehaviorOthers);
+                $("#StudentAcademicConcernOthers").text(res.StudentAcademicConcernOthers);
+                $("#StudentRelationshipOthers").text(res.StudentRelationshipOthers);
+                $("#StudentHomeConcernsOthers").text(res.StudentHomeConcernsOthers);
+                $("#StudentInitialActionsTaken").val(res.StudentInitialActionsTaken);
+                $("#StudentTrackingNumber").text(studentTrackingNumber);
+                if (res.IsAgreeToReferred == true) {
+                    $('select[name^="IsAgreeToReferred"] option[value=true]').attr("selected", "selected");
+                } else {
+
+                    $('select[name^="IsAgreeToReferred"] option[value=false]').attr("selected", "selected");
+
+                }
+              
+                $("#StudentTo").val(res.StudentTo);
+                $("#StudentDesignation").val(res.StudentDesignation);
+                $("#StudentThisIsToInform").val(res.StudentThisIsToInform);
+                $("#StudentWhomReferred").val(res.StudentWhomReferred);
+                $("#StudentHasStarted").val(res.StudentHasStarted);
+                $("#StudentBeingAttended").val(res.StudentBeingAttended);
+
+                if (res.StudentReferredTo != null) {
+
+                    $("#StudentReferredTo").val(res.StudentReferredTo);
+
+                }
+                
+                $("#StudentNumberOfFollowUps").val(res.StudentNumberOfFollowUps);
+                const moodBehaviorArr = res.StudentMoodBehaviors.split(",");
+
+                let moodBehaviorIdArr = [
+                    "AnxiousWorried", "Depressed", "EatingDisorder", "BodyImageConcerns", "HyperactiveInattentive", "ShyWithdraw",
+                    "LowSelf-esteem", "AggresiveBehaviors", "Stealing"
+                ];
+
+                const studentAcademicConcernsArr = res.StudentAcademicConcerns.split(",");
+                let studentAcademicConcernsIdArr = [
+                    "HWNTI", "LW", "PCP", "SIC", "SCIG", "FTOA",
+                    "NewStudent"
+                ];
+                const studentRelationshipArr = res.StudentRelationship.split(",");
+
+                let studentRelationshipIdArr = [
+                    "DifficultyMakingFriends", "PSS", "PWF", "BGFI"
+                ];
+                const studentHomeConcernsArr = res.StudentHomeConcerns.split(",");
+                let studentHomeConcernsIdArr = [
+                    "FWFM", "IDITF", "PDS", "SuspectedAbuse", "SSA", "ParentRequest"
+                ];
+                let studentHisHerStatusArr = [];
+                if (res.StudentHisHerStatus != null) {
+
+                    studentHisHerStatusArr = res.StudentHisHerStatus.split(",");
+
+                }
+
+                let studentHisHerStatusIdArr = [
+                    "IntakeInterview", "Counselling", "CounsellingSessions", "ConferenceConducted", "CaseTerminated",
+                    "NotShowUp", "Monitoring", "FollowUps", "ReferredTo"
+                ];
+
+                moodBehaviorIdArr.forEach((item, index) => {
+                    let moodBehaviorVal = $("#" + item).val();
+
+                    for (let mbCtr = 0; mbCtr < moodBehaviorArr.length; mbCtr++) {
+
+                        if (moodBehaviorVal == moodBehaviorArr[mbCtr]) {
+
+                            $("#" + item).prop("checked", true);
+                            break;
+
+                        } else {
+
+                            $("#" + item).prop("checked", false);
+
+                        }
+                    }
+           
+
+
+                });
+
+                studentAcademicConcernsIdArr.forEach((item, index) => {
+
+                    let studentAcademicConcernsVal = $("#" + item).val();
+
+                    for (let sacCtr = 0; sacCtr < studentAcademicConcernsArr.length; sacCtr++) {
+
+                        if (studentAcademicConcernsVal == studentAcademicConcernsArr[sacCtr]) {
+
+                            $("#" + item).prop("checked", true);
+                            break;
+
+                        } else {
+
+                            $("#" + item).prop("checked", false);
+
+                        }
+                    }
+
+                });
+
+                studentRelationshipIdArr.forEach((item, index) => {
+
+                    let studentRelationshipVal = $("#" + item).val();
+
+                    for (let srCtr = 0; srCtr < studentRelationshipArr.length; srCtr++) {
+
+                        if (studentRelationshipVal == studentRelationshipArr[srCtr]) {
+
+                            $("#" + item).prop("checked", true);
+                            break;
+
+                        } else {
+
+                            $("#" + item).prop("checked", false);
+
+                        }
+                    }
+
+                });
+
+                studentHomeConcernsIdArr.forEach((item, index) => {
+
+                    let studentHomeConcernsVal = $("#" + item).val();
+
+                    for (let shcCtr = 0; shcCtr < studentHomeConcernsArr.length; shcCtr++) {
+
+                        if (studentHomeConcernsVal == studentHomeConcernsArr[shcCtr]) {
+
+                            $("#" + item).prop("checked", true);
+                            break;
+
+                        } else {
+
+                            $("#" + item).prop("checked", false);
+
+                        }
+                    }
+
+                });
+
+                studentHisHerStatusIdArr.forEach((item, index) => {
+         
+                    let studentHisHerStatusVal = $("#" + item).val();
+
+                    for (let shhsCtr = 0; shhsCtr < studentHisHerStatusArr.length; shhsCtr++) {
+
+                        if (studentHisHerStatusVal == studentHisHerStatusArr[shhsCtr]) {
+
+                            $("#" + item).prop("checked", true);
+                            break;
+
+                        } else {
+
+                            $("#" + item).prop("checked", false);
+
+                        }
+                    }
+
+                });
+
+            }).fail(function (err) {
+
+                console.log(err);
+
+            });
+        });
+
+        $("#btnSubmit").on("click", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            const obj = new Object();
+            obj.StudentInitialActionsTaken = $.trim($("#StudentInitialActionsTaken").val());
+            obj.IsAgreeToReferred = $.trim($("#IsAgreeToReferred").val());
+            obj.StudentTo = $.trim($("#StudentTo").val());
+            obj.StudentDesignation = $.trim($("#StudentDesignation").val());
+            obj.StudentThisIsToInform = $.trim($("#StudentThisIsToInform").val());
+            obj.StudentWhomReferred = $.trim($("#StudentWhomReferred").val());
+            obj.StudentHasStarted = $.trim($("#StudentHasStarted").val());
+            obj.StudentBeingAttended = $.trim($("#StudentBeingAttended").val());
+            obj.StudentReferredTo = $.trim($("#StudentReferredTo").val());
+            obj.StudentNumberOfFollowUps = parseInt($.trim($("#StudentNumberOfFollowUps").val()));
+            obj.StudentHisHerStatus = cbStudentHisHerStatus;
+            obj.StudentReferralID = studentReferralId;
+            obj.StudentTrackingNumber = studentTrackingNumber;
+            formData.append('StudentInitialActionsTaken', obj.StudentInitialActionsTaken);
+            formData.append('IsAgreeToReferred', obj.IsAgreeToReferred);
+            formData.append('StudentTo', obj.StudentTo);
+            formData.append('StudentDesignation', obj.StudentDesignation);
+            formData.append('StudentThisIsToInform', obj.StudentThisIsToInform);
+            formData.append('StudentWhomReferred', obj.StudentWhomReferred);
+            formData.append('StudentHasStarted', obj.StudentHasStarted);
+            formData.append('StudentBeingAttended', obj.StudentBeingAttended);
+            formData.append('StudentReferredTo', obj.StudentReferredTo);
+            formData.append('StudentNumberOfFollowUps', obj.StudentNumberOfFollowUps);
+            formData.append('StudentHisHerStatus', obj.StudentHisHerStatus);
+            formData.append('StudentReferralID', obj.StudentReferralID);
+            formData.append('StudentTrackingNumber', obj.StudentTrackingNumber);
+            $.ajax({
+                url: "/dashboard/update-queing-status",
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+                contentType: false,
+                processData: false,
+                type: "POST",
+                data: formData,
+
+            }).then(function (res) {
+
+                toastr.success("Record Updated");
+                let statusTimeoutValue = null;
+                clearTimeout(statusTimeoutValue);
+
+                statusTimeoutValue = setTimeout(() => {
+                    
+                    window.location.replace("/Admin/Dashboard/Status");
+
+                }, 1500);
+
+                
+            }).fail(function (err) {
+
+                console.log(err);
+                toastr.error("Something went wrong");
+
+            });
+        });
+
+        function onChangeCheckbox() {
+
+            $("input.cb-his-her-status").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let checked = $(this).is(":checked");
+                let checkBoxValue = $(this).val();
+
+
+                if (checked) {
+
+                    cbStudentHisHerStatus += checkBoxValue + ",";
+                    if (checkBoxValue == "Number of follow-ups made by the counselor") {
+                        $("#StudentNumberOfFollowUps").removeAttr("disabled");
+                    }
+
+                    if (checkBoxValue == "Referred to") {
+                        $("#StudentReferredTo").removeAttr("disabled");
+                    }
+
+                } else {
+
+                    cbStudentHisHerStatus = cbStudentHisHerStatus.replace(checkBoxValue + ",", "");
+                    if (checkBoxValue == "Number of follow-ups made by the counselor") {
+                        $("#StudentNumberOfFollowUps").attr("disabled", "disabled");
+                    }
+
+                    if (checkBoxValue == "Referred to") {
+                        $("#StudentReferredTo").attr("disabled", "disabled");
+                    }
+
+                }
+
+
+
+            });
+        }
+
+    });
+
+</script>

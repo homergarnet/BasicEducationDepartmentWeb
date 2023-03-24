@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="vh-100 index-main-container">
+    <div class="vh-100 w-100 index-background-container position-absolute"></div>
+    <div class="vh-100 d-flex flex-column align-items-center justify-content-center">
+        <div class="container-fluid">
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form class="login-container card h-auto bg-white rounded-lg p-5">
+                        <div id="box">
+                            <p id="flashlight">
+                                <span id="light">Student Consultation Ticketing</span>
+                                <span id="light">And Tracking System</span>
+                            </p>
+                        </div>
+                        <h3 class="text-center">Admin Login</h3>
+                        <div class="form-group d-flex align-items-center justify-content-center border mb-2">
+                            <i class="fa fa-user h4 m-0 p-2" aria-hidden="true"></i>
+                            <input id="tbUsername" type="text" class="pl-1 bg-none" placeholder="Username" />
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-center border mb-2">
+                            <i class="fa fa-lock h3 m-0 p-2" aria-hidden="true"></i>
+                            <input id="tbPassword" type="password" class="pl-1" placeholder="Password" />
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                            <button id="btnLogin" type="submit" class="btn btn-primary px-4">Login</button>
+                        </div>
+                        <a class="text-primary a-d-none" href="~/Admin/Home/ForgotPassword">Forgot Password?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('api');
+        let returnUrl = "@ViewBag.ReturnUrl";
+
+        $('#btnLogin').click(function (e) {
+            e.preventDefault();
+         
+            var _username = $.trim($('#tbUsername').val());
+            var _password = $.trim($('#tbPassword').val());
+
+            if (_username == '' || _password == '') {
+                Swal.fire({
+                    title: 'Please fill-up all required fields.',
+                    type: 'info',
+                    toast: true,
+                    timer: 1500,
+                    position: 'center'
+                });
+                return false;
+            }
+
+            showLoader("Logging in..");
+
+            var dto = {};
+            dto.AccountUser = _username;
+            dto.AccountPassword = _password;
+            dto.AccountType = "admin";
+            // Get
+            postJson('/home/home/signin', JSON.stringify(dto)).done((response) => {
+   
+                if (response.status == 200) {
+                    localStorage.setItem('admin_token', response.token);
+                    localStorage.setItem('api', response.apiLink);
+
+
+                    Swal.fire({
+                        title: 'Welcome!',
+                        text: 'Redirecting. Please wait.',
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        onBeforeOpen: () => { Swal.showLoading(); }
+                    });
+
+                    window.location.replace(returnUrl);
+                } else {
+
+                    Swal.fire({
+                        title: response.status,
+                        text: "Wrong user or password",
+                        type: 'error'
+                    });
+
+                }
+            }).fail((xhr) => {
+
+                let message = xhr.status == 404 ? 'The resource you are requesting could not be found.' : JSON.parse(xhr.responseText);
+
+                if (message.redirect)
+                    window.location.replace("/Home");
+
+                Swal.fire({
+                    title: xhr.status,
+                    text: xhr.status == 404 ? message : message.errorMessage,
+                    type: "error"
+                });
+            });
+        });
+    })
+</script>

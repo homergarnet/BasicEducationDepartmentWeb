@@ -1,0 +1,12 @@
+27/01/2023 8:47:48 am : Post | url: http://localhost:61994/api/teacher-login, response: {"Message":"An error has occurred.","ExceptionMessage":"Object reference not set to an instance of an object.","ExceptionType":"System.NullReferenceException","StackTrace":"   at BasicEducationDepartment.App_Utility.Data.UsersUtils.signin(Account dto, Boolean isAdmin) in D:\\Basic Education Project\\BasicEducationDepartment\\BasicEducationDepartment\\App_Utility\\Data\\UsersUtils.cs:line 36\r\n   at BasicEducationDepartment.Controllers.AuthorizationController.TeacherLogin(Account dto) in D:\\Basic Education Project\\BasicEducationDepartment\\BasicEducationDepartment\\Controllers\\AuthorizationController.cs:line 89"}
+Exception: System.Net.WebException: The remote server returned an error: (500) Internal Server Error.
+   at System.Net.HttpWebRequest.GetResponse()
+   at BasicEducationDepartmentWeb.Helpers.HttpWebRequestHelper.Post(String url, String json) in D:\Basic Education Project\BasicEducationDepartmentWeb\BasicEducationDepartmentWeb\Helpers\HttpWebRequestHelper.cs:line 184
+-----------------------------------------------------------------------------
+
+27/01/2023 8:47:56 am : Post | url: http://localhost:61994/api/teacher-login, response: {"Message":"An error has occurred.","ExceptionMessage":"Object reference not set to an instance of an object.","ExceptionType":"System.NullReferenceException","StackTrace":"   at BasicEducationDepartment.App_Utility.Data.UsersUtils.signin(Account dto, Boolean isAdmin) in D:\\Basic Education Project\\BasicEducationDepartment\\BasicEducationDepartment\\App_Utility\\Data\\UsersUtils.cs:line 36\r\n   at BasicEducationDepartment.Controllers.AuthorizationController.TeacherLogin(Account dto) in D:\\Basic Education Project\\BasicEducationDepartment\\BasicEducationDepartment\\Controllers\\AuthorizationController.cs:line 89"}
+Exception: System.Net.WebException: The remote server returned an error: (500) Internal Server Error.
+   at System.Net.HttpWebRequest.GetResponse()
+   at BasicEducationDepartmentWeb.Helpers.HttpWebRequestHelper.Post(String url, String json) in D:\Basic Education Project\BasicEducationDepartmentWeb\BasicEducationDepartmentWeb\Helpers\HttpWebRequestHelper.cs:line 184
+-----------------------------------------------------------------------------
+

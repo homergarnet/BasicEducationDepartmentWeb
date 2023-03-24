@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Dashboard.cshtml";
+}
+<br />
+<form>
+    <div class="container mt-5">
+
+        @*DEFAULT IMAGE*@
+        <div class="row">
+            <div class="col text-center">
+                <img id="myImage" src="~/Images/default-profile.png" class="img-fluid img-thumbnail border border-secondary rounded-circle" />
+            </div>
+        </div>
+        <span class="error-text"><p class="text-center client-image-error"></p></span>
+        <div class="row justify-content-center text-center">
+            <div class="col text-center">
+                <p class="text-center">
+                    <label for="File1" class="btn btn-primary text-white mt-2">Upload picture</label>
+                </p>
+                <input id="File1" type="file" name="clientImage" style="visibility:hidden;" onchange="showImage.call(this)" accept="image/*" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="Name" class="h6">Name:</label>
+                    <input type="text" class="form-control form-control-sm" onkeypress="alphanumeric(event)" id="APName" />
+                </div>
+                <div class="form-group">
+                    <label for="Address" class="h6">Email Address:</label>
+                    <input type="email" class="form-control form-control-sm" id="APEmailAddress" required />
+                </div>
+                <div class="form-group">
+                    <label for="Address" class="h6">Address:</label>
+                    <input type="text" class="form-control form-control-sm" onkeypress="alphanumeric(event)" id="APAddress" />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="JobDescription" class="h6"><nobr>Job Description : </nobr></label>
+                    <select id="APJobDescription" class="form-control">
+                        <option disabled selected>Select</option>
+                        <option value="Guidance Councelor">Guidance Councelor</option>
+                        <option value="Teacher">Teacher</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button id="btnSave" type="submit" class="btn btn-success mx-3">Save</button>
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</form>
+
+
+<script>
+    $(document).ready(function () {
+
+        let userId = 0;
+        const url = localStorage.getItem('api') + 'api/add-or-update-admin-profile';
+
+        $.ajax({
+
+            url: '/dashboard/get-admin-by-id',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+            method: 'GET',
+            //data: {
+            //    DateFrom: _DateFrom,
+            //    DateTo: _DateTo,
+            //    SelectBy: selectBy,
+
+            //},
+        }).then(function (res) {
+
+            userId = parseInt(res.AccountID);
+            $("#APName").val(res.APName);
+            $("#APEmailAddress").val(res.APEmailAddress);
+            $("#APAddress").val(res.APAddress);
+            $("#APJobDescription").val(res.APJobDescription);
+            if (res.APImageName != null) {
+
+                $("#myImage").attr("src", localStorage.getItem('api') + "images/" + res.APImageName);
+
+            }
+
+
+        }).fail(function (err) {
+
+            console.log(err);
+
+        });
+
+        $("#btnSave").on("click", function (e) {
+            e.preventDefault();
+            var data = new FormData();
+            var imgupload = $("#File1").get(0).files;
+            var APName = $("#APName").val();
+            var APEmailAddress = $("#APEmailAddress").val();
+            var APAddress = $("#APAddress").val();
+            var APJobDescription = $("#APJobDescription").val();
+            if (imgupload.length > 0) {
+
+                data.append("Imgpathsave", imgupload[0]);
+
+            }
+
+            data.append("AccountID", userId);
+            data.append("APName", APName);
+            data.append("APEmailAddress", APEmailAddress);
+            data.append("APAddress", APAddress);
+            data.append("APJobDescription", APJobDescription);
+
+            $.ajax({
+
+                url: url,
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+                type: "post",
+                contentType: false,
+                processData: false,
+                data: data
+            }).then(function (res) {
+
+                console.log("res: ", res);
+                toastr.success(res);
+
+            });
+
+        });
+    });
+</script>
+<script>
+
+    function showImage() {
+        if (this.files && this.files[0]) {
+            let obj = new FileReader();
+            const file = this.files[0];
+            const fileType = file['type'];
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (!validImageTypes.includes(fileType)) {
+
+            }
+            else {
+                obj.onload = function (data) {
+                    var image = document.getElementById("myImage");
+                    image.src = data.target.result;
+                }
+                obj.readAsDataURL(this.files[0]);
+            }
+
+        }
+    }
+</script>

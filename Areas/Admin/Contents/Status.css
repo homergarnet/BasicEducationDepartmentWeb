@@ -1,0 +1,28 @@
+﻿.status-search-bar-main-container {
+    height: 80px;
+    margin: 0 50px;
+}
+
+.status-search-bar-container {
+    width: 300px;
+    height: 40px;
+}
+
+.status-content-container {
+    height: calc(100vh - 80px);
+    margin: 0 50px;
+}
+
+.table-container {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.st-dom-logo {
+    height: 80px;
+    width: auto;
+}
+
+.acknowledgement-form-container {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}

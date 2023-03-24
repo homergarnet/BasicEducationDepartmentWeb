@@ -1,0 +1,21 @@
+29/12/2022 3:07:44 pm : Call to list | response: {"StatusCode":500,"Result":"The underlying connection was closed: An unexpected error occurred on a receive."}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:33:14 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:34:58 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:35:28 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:35:47 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:42:45 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+
+29/12/2022 4:51:16 pm : Error on Get Student Referral Form By ID | response: {"StatusCode":405,"Result":"{\"Message\":\"The requested resource does not support http method 'POST'.\"}"}
+-----------------------------------------------------------------------------
+

@@ -1,0 +1,41 @@
+﻿<a class="a-d-none" href="/Teacher/change-password">
+    <div class="row mt-3">
+
+        <div class="col">
+            <span class="iconify h3 ms-2" data-icon="ant-design:setting-outlined"></span> Change Password
+        </div>
+    </div>
+</a>
+
+<hr>
+<a class="btn-teacher-logout a-d-none" href="#">
+    <div class="row mt-3">
+        <div class="col">
+            <span class="iconify h3 ms-2" data-icon="ri:shut-down-line"></span> Logout
+        </div>
+    </div>
+</a>
+<script>
+    $('.btn-teacher-logout').click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Logout Confirmation',
+            text: `Are you sure you want to logout?`,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: 'Ok',
+        }).then((result) => {
+
+            if (result.value == true) {
+
+                localStorage.removeItem("teacher_token");
+                window.location.replace('/Teacher/Logout');
+
+            } else if (result.dismiss == "cancel") {
+
+
+
+            }
+        });
+    });
+</script>
