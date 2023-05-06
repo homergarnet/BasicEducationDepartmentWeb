@@ -154,6 +154,7 @@
     <Compile Include="Helpers\Sessions.cs" />
     <Compile Include="Models\DTO\AccountProfileDTO.cs" />
     <Compile Include="Models\DTO\AdminDTO.cs" />
+    <Compile Include="Models\DTO\StudentDTO.cs" />
     <Compile Include="Models\DTO\StudentReferralFormDTO.cs" />
     <Compile Include="Models\DTO\UsersDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2446,6 +2447,8 @@
     <Content Include="Views\Error\TokenExpired.cshtml" />
     <Content Include="Views\Teacher\ForgotPassword.cshtml" />
     <Content Include="Views\Teacher\ResetPassword.cshtml" />
+    <Content Include="Views\Dashboard\ReferralStatus.cshtml" />
+    <Content Include="Views\Dashboard\_statusList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

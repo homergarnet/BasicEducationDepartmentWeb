@@ -1,4 +1,33 @@
-﻿.status-search-bar-main-container {
+﻿div.modal-header {
+   
+}
+
+a:hover {
+    color: white;
+}
+
+
+a {
+    color: black;
+    <p><b><a href="default.asp" target="_blank">Student Mood Behavior, Student Academic Concerns, Student Relationship, Student Home Concerns</a></b></p>
+}
+
+
+.category-href {
+    transition: 0.3s;
+    text-decoration: none;
+    padding: 5px;
+    background-color: #b51212;
+    color: white;
+}
+
+    .category-href:hover {
+        padding: 5px;
+        padding: 10px;
+        box-shadow: 0px 0px 5px rgb(128 128 128);
+    }
+
+.status-search-bar-main-container {
     height: 80px;
     margin: 0 50px;
 }

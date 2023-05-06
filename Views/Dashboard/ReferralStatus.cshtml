@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Status";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<br />
+<br />
+<div>
+
+
+    <div class="custom-scrollbar justify-content-center mb-3">
+        <table class="table table-hover table-stripped" id="tbl">
+            <thead class="table-head table-dark">
+                <tr>
+                    <th scope="col">Tracking Number</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Student Email</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Concern/Reasons</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Acknowledged by</th>
+                </tr>
+            </thead>
+            <tbody id="tStatusBodyList"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        var table = $('#tbl').DataTable().destroy();
+
+        $(document).ready(function () {
+
+            getStatusList();
+
+        });
+
+        function getStatusList() {
+
+            const tStatusBodyList = $('#tStatusBodyList');
+
+            tStatusBodyList.html('');
+            table = $('#tbl').DataTable().destroy();
+
+            const _DateFrom = $.trim($('#txtStartDate').val());
+            const _DateTo = $.trim($('#txtEndDate').val());
+            const selectBy = $.trim($('.select-by').val());
+
+
+            $.ajax({
+                url: '/student/status-list',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('student_token') },
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+                dataType: 'html'
+            }).done(function (resp) {
+
+                tStatusBodyList.html(resp);
+
+                table = $('#tbl').DataTable(
+                    {
+                        //"order": [[0, "asc"]],
+                        "ordering": false
+                    });
+            }).fail(function (err) {
+                console.log("error: ", err)
+                table = $('#tbl').DataTable().destroy();
+            });
+        }
+
+    });
+</script>

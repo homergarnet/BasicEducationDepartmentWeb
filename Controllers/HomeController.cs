@@ -1,6 +1,7 @@
 ﻿using BasicEducationDepartmentWeb.Helpers;
 using BasicEducationDepartmentWeb.Models.DTO;
 using BasicEducationDepartmentWeb.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -51,12 +52,16 @@ namespace BasicEducationDepartmentWeb.Controllers
 
             var userAuthSvc = new UserAuthSvc();
 
-            HttpResponseCustom response = userAuthSvc.StudentLogin(dto);
+            var response = userAuthSvc.StudentLogin(dto);
+
+ 
+            // Deserialize the JSON string to an object
+            var deserializedStudentDetails = JsonConvert.DeserializeObject<StudentDTO>(response.Result);
 
             if (response.StatusCode == 200)
             {
-                Sessions.StudentToken = response.GetCustomMessage().Trim();
 
+                Sessions.StudentToken = deserializedStudentDetails.Token;
                 var userSvc = new UserSvc(Sessions.StudentToken);
                 //UsersReturnDTO getProfile = userSvc.Profile();
                 //if (getProfile != null)
@@ -71,7 +76,7 @@ namespace BasicEducationDepartmentWeb.Controllers
             string apiLink = ConfigurationManager.AppSettings["api"];
 
 
-            return Json(new { status = response.StatusCode.ToString(), txt = response.Result, token = Sessions.StudentToken, apiLink = apiLink });
+            return Json(new { status = response.StatusCode.ToString(), txt = response, token = Sessions.StudentToken, apiLink = apiLink });
         }
 
         public ActionResult Signup(string returnUrl)

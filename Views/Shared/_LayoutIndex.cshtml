@@ -1,4 +1,9 @@
 ﻿<!DOCTYPE html>
+<style>
+    .index-img {
+        height: inherit !important;
+    }
+</style>
 <html>
 <head>
 
@@ -33,6 +38,7 @@
 </head>
 <body>
 
+
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="/"><img class="img-fluid st-dominic-logo" src="~/Images/st-dom-logo.png" /></a>
@@ -52,31 +58,33 @@
                         <a class="nav-link" href="#gallery">Gallery</a>
                     </li>
                 </ul>
+                <h1 class="display-1 font-weight-bold text-center text-black" style="color: black; font-size: 20px; -webkit-text-stroke: 0px black; -webkit-text-fill-color: black; float: left; margin-left: 5000px; text-align: center; vertical-align: middle; margin: 0; padding: 0; ">
+
+                    Online Student Consultation Ticketing and Tracking System
+
+                </h1>
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item active">
                         <a class="nav-link" href="/Home/Login">Login</a>
                     </li>
 
-                    <li class="nav-item active">
+                   @*<li class="nav-item active">
                         <a class="nav-link" href="/Home/Signup">Signup</a>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid index-img">
+    <div class="container-fluid index-img " style="background-image:none;">
         <div class="row">
             <div class="col text-center">
-                <div class="mx-auto" style="padding-top: 15%; ">
-                    <h1 class="display-3 font-weight-bold text-center text-white">
-                        The Basic Education Department Production
-                    </h1>
-                    <br />
-                    <div class="container border border-primary rounded">
+                <img src="~/Images/DominicLayout.png" class="img-fluid img-card-c-height" style="float: left; margin-right: 150px; width: 120%; height: 100%; text-align: center; vertical-align: middle;" />
+
+                <div class="mx-auto" style="padding-top: 0%; ">
+
+                    <div class="">
                         <h3 class="dim-white">
-                            Gives you the best developer experience with all the features you need for production: hybrid static &
-                            server rendering, TypeScript support, smart bundling, route pre-fetching, and more. No config needed.
                         </h3>
                     </div>
 

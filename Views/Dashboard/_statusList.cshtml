@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BasicEducationDepartmentWeb.Models.DTO.StudentReferralFormDTO>
+
+
+@if (Model.Count() == 0)
+{
+
+}
+else
+{
+    foreach (var row in Model)
+    {
+        <tr>
+            <td>@row.StudentTrackingNumber</td>
+            <td>@row.StudentName</td>
+            <td>@row.APEmailAddress</td>
+            <td>
+                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+                {
+
+                    <p class=""> Mood Behaviors</p>
+
+                }
+
+                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+                {
+
+                    <p> Academic Concerns</p>
+
+                }
+
+                @if (row.StudentRelationship != null || row.StudentRelationship != "")
+                {
+
+                    <p> Relationship</p>
+
+                }
+
+                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+                {
+
+                    <p> Home Concerns</p>
+
+                }
+            </td>
+            <td>
+                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+                {
+
+                    <p>@row.StudentMoodBehaviors</p>
+
+                }
+
+                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+                {
+
+                    <p>@row.StudentAcademicConcerns</p>
+
+                }
+
+                @if (row.StudentRelationship != null || row.StudentRelationship != "")
+                {
+
+                    <p>@row.StudentRelationship</p>
+
+                }
+
+                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+                {
+
+                    <p>@row.StudentHomeConcerns</p>
+
+                }
+            </td>
+            <td>
+                @if (row.StudentStatus == null || row.StudentStatus == "")
+                {
+                    <p>Pending</p>
+                }
+                else
+                {
+                    <p>@row.StudentStatus</p>
+                }
+            </td>
+            <td>@row.StudentAcknowledgeByName</td>
+        </tr>
+    }
+}

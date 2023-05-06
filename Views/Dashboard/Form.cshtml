@@ -3,13 +3,17 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
+<br />
+<br />
+
+
 <form class="container form-container border p-4 my-4">
     <div class="container border mb-2">
         <div class="row">
 
             <div class="col-md-3">
                 <label class="mb-1" for="StudentName">NAME OF THE STUDENT : </label>
-                <input type="text" class="form-control form-control-sm" id="StudentName" />
+                <input type="text" class="form-control form-control-sm" id="StudentName" readonly/>
             </div>
 
             <div class="col-md-3">
@@ -22,7 +26,7 @@
 
             <div class="col-md-3">
                 <label class="mb-1" for="date">DATE : </label>
-                <input type="date" class="form-control form-control-sm" id="DateCreated" />
+                <input type="date" class="form-control form-control-sm" id="DateCreated" readonly/>
             </div>
         </div>
 
@@ -30,7 +34,7 @@
 
             <div class="col-md-3">
                 <label class="mb-1" for="ReferredBy">REFERRED BY : </label>
-                <input type="text" class="form-control form-control-sm" id="StudentReferredBy" />
+                <input type="text" class="form-control form-control-sm" id="StudentReferredBy"required />
             </div>
 
             <div class="col-md-3">
@@ -43,7 +47,7 @@
 
             <div class="col-md-3">
                 <label class="mb-1" for="LnS">LEVEL & SECTION : </label>
-                <input type="text" class="form-control form-control-sm" id="StudentLevelSection" />
+                <input type="text" class="form-control form-control-sm" id="StudentLevelSection"readonly />
             </div>
         </div>
 
@@ -51,7 +55,12 @@
 
             <div class="col-md-3">
                 <label class="mb-1" for="RFR">REASON FOR REFERRAL : </label>
-                <input type="text" class="form-control form-control-sm" id="StudentReasonForRefferal" />
+                <select id="StudentReasonForRefferal" class="form-select" multiple>
+                    <option selected value="Moods/Behaviors">Moods/Behaviors</option>
+                    <option value="Academic Concerns">Academic Concerns</option>
+                    <option value="Relationship">Relationship</option>
+                    <option value="Home Concerns">Home Concerns</option>
+                </select>
             </div>
 
             <div class="col-md-3">
@@ -72,7 +81,7 @@
 
     <div class="container border mb-2">
         <div class="row mt-2">
-            <div class="col-md-6">
+            <div id="moodsBehaviors" class="col-md-6">
                 <p class="text-center h5"><span>Moods/Behaviors</span></p>
                 <div class="d-flex flex-column align-items-baseline py-2">
                     <div class="d-flex align-items-center justify-content-start mb-1">
@@ -133,7 +142,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div id="academicConcerns" class="col-md-6 d-none">
                 <p class="text-center h5"><span>Academic Concerns</span></p>
                 <div class="d-flex flex-column align-items-baseline py-2">
                     <div class="d-flex align-items-center justify-content-start mb-1">
@@ -174,7 +183,7 @@
 
         <div class="row">
 
-            <div class="col-md-6">
+            <div id="relationship" class="col-md-6 d-none">
                 <p class="text-center h5"><span>Relationship</span></p>
                 <div class="d-flex flex-column align-items-baseline py-2">
                     <div class="d-flex align-items-center justify-content-start mb-1">
@@ -200,7 +209,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div id="homeConcerns" class="col-md-6 d-none">
                 <p class="text-center h5"><span>Home Concerns</span></p>
                 <div class="d-flex flex-column align-items-baseline py-2">
                     <div class="d-flex align-items-center justify-content-start mb-1">
@@ -250,6 +259,20 @@
 <script>
     $(document).ready(function () {
 
+        let studentDetails = JSON.parse(localStorage.getItem("student_details"));
+        $('#s-student-number').val(studentDetails.StudentDetails.Student_number);
+        let studentFullName = studentDetails.StudentDetails.First_Name + " " + studentDetails.StudentDetails.Middle_Name + " " + studentDetails.StudentDetails.Last_Name;
+        $('#s-display-name').val(studentDetails.StudentDetails.First_Name + ' ' + studentDetails.StudentDetails.Middle_Name + ' ' + studentDetails.StudentDetails.Last_Name);
+        $("#StudentName").val(studentFullName);
+        let now = new Date();
+
+        let day = ("0" + now.getDate()).slice(-2);
+        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        let today = now.getFullYear() + "-" + (month) + "-" + (day);
+        let gradeLevelAndSection = studentDetails.StudentDetails.Gradelevel + " " + studentDetails.StudentDetails.section_name;    
+        $("#StudentLevelSection").val(gradeLevelAndSection);
+        $('#DateCreated').val(today);
         let cbMoodBehaviors = "";
         let cbAcademicConcerns = "";
         let cbAcademicRelationship = "";
@@ -258,10 +281,13 @@
         const url = '/dashboard/referral-form';
 
         onChangeCheckbox();
-
+        onChangeMultiSelect();
         $("#submitForm").on("click", function (e) {
             e.preventDefault();
 
+            let isAllowsave = false;
+            let validationErrMsg = [];
+            let validationErrInc = 0;
 
             const formData = new FormData();
             const obj = new Object();
@@ -269,61 +295,214 @@
             obj.DateTimeCreated = $.trim($("#DateCreated").val());
             obj.StudentReferredBy = $.trim($("#StudentReferredBy").val());
             obj.StudentLevelSection = $.trim($("#StudentLevelSection").val());
-            obj.StudentReasonForRefferal = $.trim($("#StudentReasonForRefferal").val());
-            obj.StudentMoodBehaviorOthers = $.trim($("#StudentMoodBehaviorOthers").val());
-            obj.StudentAcademicConcernOthers = $.trim($("#StudentAcademicConcernOthers").val());
-            obj.StudentRelationshipOthers = $.trim($("#StudentRelationshipOthers").val());
-            obj.StudentHomeConcernsOthers = $.trim($("#StudentHomeConcernsOthers").val());
+            let studentReasonFormForReferral = $("#StudentReasonForRefferal").val();
+      
+            if (obj.StudentReferredBy == '') {
+                Swal.fire({
+                    title: 'Please fill up all required fields ',
+                    type: 'info',
+                    toast: true,
+                    timer: 1500,
+                    position: 'center'
+                });
+                return false;
+            }
 
-            obj.StudentMoodBehaviors = cbMoodBehaviors;
-            obj.StudentAcademicConcerns = cbAcademicConcerns;
-            obj.StudentRelationship = cbAcademicRelationship;
-            obj.StudentHomeConcerns = cbStudentHomeConcerns;
+            if (studentReasonFormForReferral.includes("Moods/Behaviors")) {
 
-            formData.append('StudentName', obj.StudentName);
-            formData.append('DateTimeCreated', obj.DateTimeCreated);
-            formData.append('StudentReferredBy', obj.StudentReferredBy);
-            formData.append('StudentLevelSection', obj.StudentLevelSection);
-            formData.append('StudentReasonForRefferal', obj.StudentReasonForRefferal);
-            formData.append('StudentMoodBehaviorOthers', obj.StudentMoodBehaviorOthers);
-            formData.append('StudentAcademicConcernOthers', obj.StudentAcademicConcernOthers);
-            formData.append('StudentRelationshipOthers', obj.StudentRelationshipOthers);
-            formData.append('StudentHomeConcernsOthers', obj.StudentHomeConcernsOthers);
-            formData.append('StudentMoodBehaviors', obj.StudentMoodBehaviors);
-            formData.append('StudentAcademicConcerns', obj.StudentAcademicConcerns);
-            formData.append('StudentRelationship', obj.StudentRelationship);
-            formData.append('StudentHomeConcerns', obj.StudentHomeConcerns);
+                if ($('input.cb-mood-behaviors').is(':checked')) {
 
-            showLoader("Creating an referral form..");
+                    isAllowsave = true;
 
-            $.ajax({
-                url: url,
-                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('student_token') },
-                contentType: false,
-                processData: false,
-                type: "POST",
-                data: formData,
+                }
 
-            }).then(function (res) {
+                else {
 
-                toastr.success("Record Saved");
-                let formTimeoutValue = null;
-                clearTimeout(formTimeoutValue);
+                    isAllowsave = false;
+                    validationErrMsg[validationErrInc] = "Check atleast one checkbox in Mood/Behaviors";
+                    validationErrInc++;
 
-                formTimeoutValue = setTimeout(() => {
+                }
+            }
 
-                    window.location.replace("/Dashboard/Referral-form");
+            if (studentReasonFormForReferral.includes("Academic Concerns")) {
 
-                }, 1500);
+                if ($('input.cb-academic-concerns').is(':checked')) {
 
-            }).fail(function (err) {
+                    isAllowsave = true;
 
-                console.log(err);
-                toastr.error("Something went wrong");
+                }
 
-            });
+                else {
+
+                    isAllowsave = false;
+                    validationErrMsg[validationErrInc] = "Check atleast one checkbox in Academic Concerns";
+                    validationErrInc++;
+
+                }
+            }
+
+            if (studentReasonFormForReferral.includes("Relationship")) {
+
+                if ($('input.cb-student-relationship').is(':checked')) {
+
+                    isAllowsave = true;
+
+                }
+
+                else {
+
+                    isAllowsave = false;
+                    validationErrMsg[validationErrInc] = "Check atleast one checkbox in Relationship";
+                    validationErrInc++;
+
+                }
+            }
+
+            if (studentReasonFormForReferral.includes("Home Concerns")) {
+
+                if ($('input.cb-student-home-concerns').is(':checked')) {
+
+                    isAllowsave = true;
+
+                }
+
+                else {
+
+                    isAllowsave = false;
+                    validationErrMsg[validationErrInc] = "Check atleast one checkbox in Home Concerns";
+                    validationErrInc++;
+
+                }
+            }
+            if (isAllowsave) {
+
+                let studentReasonFormForReferralStr = "";
+
+                studentReasonFormForReferral.forEach((item, index) => {
+                    console.log(index, item)
+                    studentReasonFormForReferralStr += item + ", ";
+                    if (item == "Moods/Behaviors") {
+
+                    }
+                });
+
+                studentReasonFormForReferralStr = studentReasonFormForReferralStr.slice(0, -2);
+
+                obj.StudentReasonForReferral = studentReasonFormForReferralStr;
+                obj.StudentMoodBehaviorOthers = $.trim($("#StudentMoodBehaviorOthers").val());
+                obj.StudentAcademicConcernOthers = $.trim($("#StudentAcademicConcernOthers").val());
+                obj.StudentRelationshipOthers = $.trim($("#StudentRelationshipOthers").val());
+                obj.StudentHomeConcernsOthers = $.trim($("#StudentHomeConcernsOthers").val());
+                obj.StudentMoodBehaviors = cbMoodBehaviors;
+                obj.StudentAcademicConcerns = cbAcademicConcerns;
+                obj.StudentRelationship = cbAcademicRelationship;
+                obj.StudentHomeConcerns = cbStudentHomeConcerns;
+
+                formData.append('StudentName', obj.StudentName);
+                formData.append('DateTimeCreated', obj.DateTimeCreated);
+                formData.append('StudentReferredBy', obj.StudentReferredBy);
+                formData.append('StudentLevelSection', obj.StudentLevelSection);
+                formData.append('StudentReasonForReferral', obj.StudentReasonForReferral);
+                formData.append('StudentMoodBehaviorOthers', obj.StudentMoodBehaviorOthers);
+                formData.append('StudentAcademicConcernOthers', obj.StudentAcademicConcernOthers);
+                formData.append('StudentRelationshipOthers', obj.StudentRelationshipOthers);
+                formData.append('StudentHomeConcernsOthers', obj.StudentHomeConcernsOthers);
+                formData.append('StudentMoodBehaviors', obj.StudentMoodBehaviors);
+                formData.append('StudentAcademicConcerns', obj.StudentAcademicConcerns);
+                formData.append('StudentRelationship', obj.StudentRelationship);
+                formData.append('StudentHomeConcerns', obj.StudentHomeConcerns);
+
+                showLoader("Creating an referral form..");
+
+                $.ajax({
+                    url: url,
+                    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('student_token') },
+                    contentType: false,
+                    processData: false,
+                    type: "POST",
+                    data: formData,
+
+                }).then(function (res) {
+
+                    toastr.success("Record Saved");
+                    let formTimeoutValue = null;
+                    clearTimeout(formTimeoutValue);
+
+                    formTimeoutValue = setTimeout(() => {
+
+                        window.location.replace("/Dashboard/Referral-form");
+
+                    }, 1500);
+
+                }).fail(function (err) {
+
+                    console.log(err);
+                    toastr.error("Something went wrong");
+
+                });
+
+            } else {
+
+                
+                validationErrMsg.forEach((item, index) => {
+
+                    toastr.error(item);
+
+                });
+
+            }
+
 
         });
+
+        function onChangeMultiSelect() {
+            $("select#StudentReasonForRefferal").on("change", function (e) {
+                e.preventDefault();
+                // Checkbox state
+                let studentReasonForRefferal = $(this).val();
+                if (studentReasonForRefferal.includes("Moods/Behaviors")) {
+                    $("div#moodsBehaviors").removeClass("d-none");
+                } else {
+
+                    $("div#moodsBehaviors").addClass("d-none");
+                    $("input.cb-mood-behaviors").prop("checked", false);
+                    $("textarea#StudentMoodBehaviorOthers").val("");
+
+                }
+
+                if (studentReasonForRefferal.includes("Academic Concerns")) {
+                    $("div#academicConcerns").removeClass("d-none");
+                } else {
+
+                    $("div#academicConcerns").addClass("d-none");
+                    $("input.cb-academic-concerns").prop("checked", false);
+                    $("textarea#StudentAcademicConcernOthers").val("");
+
+                }
+
+                if (studentReasonForRefferal.includes("Relationship")) {
+                    $("div#relationship").removeClass("d-none");
+                } else {
+
+                    $("div#relationship").addClass("d-none");
+                    $("input.cb-student-relationship").prop("checked", false);
+                    $("textarea#StudentRelationshipOthers").val("");
+
+                }
+
+                if (studentReasonForRefferal.includes("Home Concerns")) {
+                    $("div#homeConcerns").removeClass("d-none");
+                } else {
+
+                    $("div#homeConcerns").addClass("d-none");
+                    $("input.cb-student-home-concerns").prop("checked", false);
+                    $("textarea#StudentHomeConcernsOthers").val("");
+
+                }
+
+            });
+        }
 
         function onChangeCheckbox() {
 
