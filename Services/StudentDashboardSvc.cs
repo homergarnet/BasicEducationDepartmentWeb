@@ -39,6 +39,23 @@ namespace BasicEducationDepartmentWeb.Services
 
         }
 
+        public List<StudentReferralFormDTO> StatusList(StudentReferralFormDTO dto)
+        {
+
+            var Messages = new List<StudentReferralFormDTO>();
+            HttpResponseCustom response = _httpRequest.Post($"{_api}api/student/get-status-list", dto.Serialize());
+
+            if (response.StatusCode == 200)
+                Messages = response.Result.DeserializeToList<StudentReferralFormDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Call to list | response: {response.Serialize()}");
+            }
+
+            return Messages;
+
+        }
 
     }
 }

@@ -51,6 +51,32 @@ namespace BasicEducationDepartmentWeb.Controllers
             return View();
         }
 
+        [Route("dashboard/referral-status")]
+        public ActionResult ReferralStatus()
+        {
+            return View();
+        }
+
+        [HttpGet, Route("student/status-list")]
+        public PartialViewResult StatusList(StudentReferralFormDTO dto)
+        {
+            try
+            {
+
+                var svc = new StudentDashboardSvc(Sessions.StudentToken);
+
+                List<StudentReferralFormDTO> msg = svc.StatusList(dto);
+                return PartialView(@"~/Views/Dashboard/_statusList.cshtml", msg);
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView();
+
+            }
+        }
+
         [HttpPost]
         [Route("dashboard/referral-form")]
         public JsonResult StudentReferralForm(StudentReferralFormDTO dto)

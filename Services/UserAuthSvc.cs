@@ -16,9 +16,9 @@ namespace BasicEducationDepartmentWeb.Services
             return response;
         }
 
-        public HttpResponseCustom StudentLogin(UsersSigninDTO dto)
+        public dynamic StudentLogin(UsersSigninDTO dto)
         {
-            HttpResponseCustom response = _httpRequest.Post($"{_api}api/login", dto.Serialize());
+            var response = _httpRequest.Post($"{_api}api/login", dto.Serialize());
 
             return response;
         }

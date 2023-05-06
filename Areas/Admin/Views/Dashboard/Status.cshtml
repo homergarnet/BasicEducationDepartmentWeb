@@ -9,16 +9,16 @@
     <div class="status-search-bar-main-container d-flex justify-content-between align-items-center">
 
         <!-- Button trigger modal -->
-        <button type="button" class="border-0 bg-primary p-1 border rounded-circle me-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="fa fa-envelope-o p-1 text-white" aria-hidden="true"></i>
+        <button type="button" class="border-0 bg-primary p-1 border me-4" style="border-radius: 50%; width: 50px; height: 50px; background-color:#9A1A21 !important;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="fa fa-envelope-o p-1 text-white h4" aria-hidden="true"></i>
         </button>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="emailModalLabel">Sending Email</h5>
+                    <div class="modal-header" style="background-color: #9A1A21;">
+                        <h5 class="modal-title"id="emailModalLabel" style="color: #FFFFFF; ">Sending Email</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -40,8 +40,8 @@
                                 <textarea class="form-control" id="Body"></textarea>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button id="btnSendEmail" type="submit" class="btn btn-primary me-2">Send</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button id="btnSendEmail"style="background-color: #9A1A21;" type="submit" class="btn btn-primary me-2">Send</button>
+                                <button type="button"style="background-color: #414141;" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
@@ -63,7 +63,7 @@
                     <th scope="col">CATEGORY</th>
                     <th scope="col">CONCERNS/REASONS</th>
                     <th scope="col">STATUS</th>
-                    <th scope="col">ACKNOWLEDGE BY</th>
+                    <th scope="col">ACKNOWLEDGED BY</th>
                 </tr>
             </thead>
             <tbody id="tStatusBodyList"></tbody>
@@ -76,7 +76,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="emailModalLabel">Modal Title</h5>
+                <h5 class="modal-title" id="emailModalLabel"> </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -301,7 +301,7 @@
                                 <div class="border p-2 my-2">
                                     <div>
                                         <span class="h6">INITIAL ACTION/S TAKEN:</span>
-                                        <input type="text" class="form-control form-control-sm" id="StudentInitialActionsTaken" />
+                                        <input type="text" class="form-control form-control-sm" id="StudentInitialActionsTaken" required/>
                                     </div>
                                 </div>
                             </div>
@@ -332,11 +332,11 @@
                         <div class="d-flex">
                             <div class="to-container w-50 d-flex align-items-center border p-2 me-2">
                                 <label class="m-0 px-2">To:</label>
-                                <input id="StudentTo" type="text" class="form-control form-control-sm" />
+                                <input id="StudentTo" type="text" class="form-control form-control-sm" required />
                             </div>
                             <div class="designation-container w-50 d-flex align-items-center border p-2">
                                 <label class="m-0 px-2">Designation:</label>
-                                <input id="StudentDesignation" type="text" class="form-control form-control-sm" />
+                                <input id="StudentDesignation" type="text" class="form-control form-control-sm" required />
                             </div>
                         </div>
                         <div class="w-100 my-2 border">
@@ -345,7 +345,7 @@
                                     <span class=""><nobr>This is to inform you that</nobr></span>
                                 </div>
                                 <div class="w-100">
-                                    <input id="StudentThisIsToInform" type="text" class="form-control form-control-sm" />
+                                    <input id="StudentThisIsToInform" type="text" class="form-control form-control-sm" value="" readonly/>
                                 </div>
                                 <div class="w-auto px-2">
                                     <span><nobr>whom you referred to us on</nobr></span>
@@ -353,13 +353,13 @@
                             </div>
                             <div class="d-flex flex-wrap align-items-center my-2">
                                 <div class="px-2 w-25">
-                                    <input id="StudentWhomReferred" type="text" class="form-control form-control-sm" />
+                                    <input id="StudentWhomReferred" type="date" class="form-control form-control-sm" />
                                 </div>
                                 <div>
                                     <span>has started his/her session on</span>
                                 </div>
                                 <div class="px-2 w-25">
-                                    <input id="StudentHasStarted" type="text" class="form-control form-control-sm" />
+                                    <input id="StudentHasStarted" type="date" class="form-control form-control-sm" required />
                                 </div>
                                 <div class="">
                                     <span>and is being attended</span>
@@ -367,10 +367,10 @@
                             </div>
                             <div class="d-flex flex-wrap align-items-center mb-2">
                                 <div class="px-2">
-                                    <span>By</span>
+                                    <span>by:</span>
                                 </div>
                                 <div class="w-50">
-                                    <input id="StudentBeingAttended" type="text" class="form-control form-control-sm" />
+                                    <input id="StudentBeingAttended" type="text" class="form-control form-control-sm" required />
                                 </div>
                                 <div class="px-2">
                                     <span>.</span>
@@ -387,12 +387,12 @@
                                     <label for="IntakeInterview" class="m-0 text-nowrap">Closed at intake interview</label>
                                 </div>
                                 <div class="d-flex my-1 align-items-center">
-                                    <input type="checkbox" class="mx-1 cb-his-her-status" value="For counselling" id="Counselling" />
-                                    <label for="Counselling" class="m-0 text-nowrap">For counselling</label>
+                                    <input type="checkbox" class="mx-1 cb-his-her-status" value="For counseling" id="Counseling" />
+                                    <label for="Counseling" class="m-0 text-nowrap">For counseling</label>
                                 </div>
                                 <div class="d-flex my-1 align-items-center">
-                                    <input type="checkbox" class="mx-1 cb-his-her-status" value="Counselling sessions are ongoing" id="CounsellingSessions" />
-                                    <label for="CounsellingSessions" class="m-0 text-nowrap">Counselling sessions are ongoing</label>
+                                    <input type="checkbox" class="mx-1 cb-his-her-status" value="Counseling sessions are ongoing" id="CounselingSessions" />
+                                    <label for="CounselingSessions" class="m-0 text-nowrap">Counseling sessions are ongoing</label>
                                 </div>
                                 <div class="d-flex my-1 align-items-center">
                                     <input type="checkbox" class="mx-1 cb-his-her-status" value="Parent/guardian conference conducted" id="ConferenceConducted" />
@@ -457,7 +457,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 @* FOR JS PRINT *@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
@@ -477,9 +477,9 @@
             var img = canvas.toDataURL("imgae/png", wid = canvas.width, hgt = canvas.height);
             var hratio = hgt / wid;
             var doc = new jsPDF('p', 'pt', 'a4');
-            var width = doc.internal.pageSize.width;
+            var width = doc.internal.pageSize.width * 1.35;
             var height = width * hratio;
-            doc.addImage(img, 'JPEG', 50, 20, width, height);
+            doc.addImage(img, 'JPEG', 20, 20, width, height);
             const date = new Date();
             doc.save('Counseling Referral Acknowledgement Form - ' + studentName + '.pdf');
             $(".status-hide").show();
@@ -555,7 +555,8 @@
         });
 
         $(document).ready(function () {
-
+            document.getElementById('StudentHasStarted').valueAsDate = new Date();
+            document.getElementById('StudentWhomReferred').valueAsDate = new Date();
             getStatusList();
 
         });

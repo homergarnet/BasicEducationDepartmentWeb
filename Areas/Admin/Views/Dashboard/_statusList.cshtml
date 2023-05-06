@@ -14,31 +14,31 @@ else
             <td>@row.StudentName</td>
             <td>@row.APEmailAddress</td>
             <td>
-                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+                @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Moods/Behaviors"))
                 {
 
-                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Mood Behaviors</a>
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Moods/Behaviors</a>
 
                 }
 
-                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+                @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Academic Concerns"))
                 {
 
-                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Academic Concerns</a>
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Academic Concerns</a>
 
                 }
 
-                @if (row.StudentRelationship != null || row.StudentRelationship != "")
+                @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Relationship"))
                 {
 
-                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Relationship</a>
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Relationship</a>
 
                 }
 
-                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+                @if(row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Home Concerns"))
                 {
 
-                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Student Home Concerns</a>
+                    <a class="category-href" href="@row.StudentReferralID" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Home Concerns</a>
 
                 }
             </td>
@@ -115,7 +115,7 @@ else
         onChangeCheckbox();
         $("a.category-href").on("click", function (e) {
             e.preventDefault();
-            
+
             $(".cb-mood-behaviors").prop("checked", false);
             $(".cb-academic-concerns").prop("checked", false);
             $(".cb-student-relationship").prop("checked", false);
@@ -140,6 +140,7 @@ else
                 cbStudentHisHerStatus = "";
                 cbStudentHisHerStatus = res.StudentHisHerStatus;
                 $("#StudentName").text(res.StudentName);
+
                 studentName = (res.StudentName);
                 if (res.StudentName != null) {
                     const studentNameArr = res.StudentName.split(" ", 2);
@@ -174,10 +175,10 @@ else
                     $('select[name^="IsAgreeToReferred"] option[value=false]').attr("selected", "selected");
 
                 }
-              
+
                 $("#StudentTo").val(res.StudentTo);
                 $("#StudentDesignation").val(res.StudentDesignation);
-                $("#StudentThisIsToInform").val(res.StudentThisIsToInform);
+                $("#StudentThisIsToInform").val(res.StudentThisIsToInform != null ? res.StudentThisIsToInform : res.StudentName);
                 $("#StudentWhomReferred").val(res.StudentWhomReferred);
                 $("#StudentHasStarted").val(res.StudentHasStarted);
                 $("#StudentBeingAttended").val(res.StudentBeingAttended);
@@ -187,7 +188,7 @@ else
                     $("#StudentReferredTo").val(res.StudentReferredTo);
 
                 }
-                
+
                 $("#StudentNumberOfFollowUps").val(res.StudentNumberOfFollowUps);
                 const moodBehaviorArr = res.StudentMoodBehaviors.split(",");
 
@@ -238,7 +239,7 @@ else
 
                         }
                     }
-           
+
 
 
                 });
@@ -304,7 +305,7 @@ else
                 });
 
                 studentHisHerStatusIdArr.forEach((item, index) => {
-         
+
                     let studentHisHerStatusVal = $("#" + item).val();
 
                     for (let shhsCtr = 0; shhsCtr < studentHisHerStatusArr.length; shhsCtr++) {
@@ -335,14 +336,34 @@ else
 
             const formData = new FormData();
             const obj = new Object();
-            obj.StudentInitialActionsTaken = $.trim($("#StudentInitialActionsTaken").val());
+            let studentInitialActionsTaken = $.trim($("#StudentInitialActionsTaken").val());
+            let studentTo = $.trim($("#StudentTo").val());
+            let studentDesignation = $.trim($("#StudentDesignation").val());
+            let studentThisIsToInform = $.trim($("#StudentThisIsToInform").val());
+            let studentWhomReferred = $.trim($("#StudentWhomReferred").val());
+            let studentHasStarted = $.trim($("#StudentHasStarted").val());
+            let studentBeingAttended = $.trim($("#StudentBeingAttended").val());
+            if (studentInitialActionsTaken == '' || studentTo == '' || studentDesignation == '' || studentThisIsToInform == '' || studentWhomReferred == '' ||
+                studentHasStarted == '' || studentBeingAttended == ''
+            ) {
+                Swal.fire({
+                    title: 'Please fill-up all required fields.',
+                    type: 'info',
+                    toast: true,
+                    timer: 1500,
+                    position: 'center'
+                });
+                return false;
+            }
+
+            obj.StudentInitialActionsTaken = studentInitialActionsTaken;
             obj.IsAgreeToReferred = $.trim($("#IsAgreeToReferred").val());
-            obj.StudentTo = $.trim($("#StudentTo").val());
-            obj.StudentDesignation = $.trim($("#StudentDesignation").val());
-            obj.StudentThisIsToInform = $.trim($("#StudentThisIsToInform").val());
-            obj.StudentWhomReferred = $.trim($("#StudentWhomReferred").val());
-            obj.StudentHasStarted = $.trim($("#StudentHasStarted").val());
-            obj.StudentBeingAttended = $.trim($("#StudentBeingAttended").val());
+            obj.StudentTo = studentTo;
+            obj.StudentDesignation = studentDesignation;
+            obj.StudentThisIsToInform = studentThisIsToInform;
+            obj.StudentWhomReferred = studentWhomReferred;
+            obj.StudentHasStarted = studentHasStarted;
+            obj.StudentBeingAttended = studentBeingAttended;
             obj.StudentReferredTo = $.trim($("#StudentReferredTo").val());
             obj.StudentNumberOfFollowUps = parseInt($.trim($("#StudentNumberOfFollowUps").val()));
             obj.StudentHisHerStatus = cbStudentHisHerStatus;
@@ -376,12 +397,12 @@ else
                 clearTimeout(statusTimeoutValue);
 
                 statusTimeoutValue = setTimeout(() => {
-                    
+
                     window.location.replace("/Admin/Dashboard/Status");
 
                 }, 1500);
 
-                
+
             }).fail(function (err) {
 
                 console.log(err);

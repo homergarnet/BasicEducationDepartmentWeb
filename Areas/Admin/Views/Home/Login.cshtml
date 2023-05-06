@@ -3,34 +3,51 @@
     ViewBag.Title = "Login";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<style>
+    bg-red {
+        background-color: #9A1A21;
+    }
 
-<div class="vh-100 index-main-container">
-    <div class="vh-100 w-100 index-background-container position-absolute"></div>
+    #s-o-red-1 {
+        background-color: #9A1A21 !important;
+        background-image: url("/Images/DominicLayout.png");
+        background-size: cover;
+    }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Century+Gothic&display=swap" rel="stylesheet">
+
+<div id="s-o-red-1" class="vh-100 index-main-container" style="background-color: #9A1A21">
+
+    <div class=" w-100 index-background-container position-absolute" style=""></div>
     <div class="vh-100 d-flex flex-column align-items-center justify-content-center">
         <div class="container-fluid">
 
             <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form class="login-container card h-auto bg-white rounded-lg p-5">
+                <div class="col-md-3">
+                    <form class="login-container card h-auto bg-white rounded-lg p-3">
                         <div id="box">
                             <p id="flashlight">
-                                <span id="light">Student Consultation Ticketing</span>
-                                <span id="light">And Tracking System</span>
+                                <span id="light">
+                                    <img src="~/Images/NEW_LOGO1.png" class="img-fluid img-card-c-height" style="float: left; margin-left: 12px; margin-right: 10px; padding: 0; width: 240px; height: 220px; text-align: center; vertical-align: middle; ">
+                                </span>
                             </p>
                         </div>
-                        <h3 class="text-center">Admin Login</h3>
+                        <h3 class="text-center justify-content-center mb-3" style="font-size: 23px; text-align: center; vertical-align: middle; font-family: 'Century Gothic' , sans-serif;">Admin Login</h3>
+
                         <div class="form-group d-flex align-items-center justify-content-center border mb-2">
-                            <i class="fa fa-user h4 m-0 p-2" aria-hidden="true"></i>
+                            <i class="fa fa-user h4 m-0 p-1" aria-hidden="true"></i>
                             <input id="tbUsername" type="text" class="pl-1 bg-none" placeholder="Username" />
                         </div>
                         <div class="form-group d-flex align-items-center justify-content-center border mb-2">
-                            <i class="fa fa-lock h3 m-0 p-2" aria-hidden="true"></i>
+                            <i class="fa fa-lock h3 m-0 p-1" aria-hidden="true"></i>
                             <input id="tbPassword" type="password" class="pl-1" placeholder="Password" />
                         </div>
+                        <a class="text-primary a-d-none" href="~/Admin/Home/ForgotPassword"><span style="color: #9A1A21; font-size: 13px "> Forgot Password? </span></a>
                         <div class="form-group d-flex align-items-center justify-content-center">
-                            <button id="btnLogin" type="submit" class="btn btn-primary px-4">Login</button>
+                            <br />
+                            <button id="btnLogin" style="background-color: #9A1A21; font-size: 16px" type="submit" class="btn btn-primary px-3">Login</button><br />
                         </div>
-                        <a class="text-primary a-d-none" href="~/Admin/Home/ForgotPassword">Forgot Password?</a>
+
                     </form>
                 </div>
             </div>
@@ -47,7 +64,7 @@
 
         $('#btnLogin').click(function (e) {
             e.preventDefault();
-         
+
             var _username = $.trim($('#tbUsername').val());
             var _password = $.trim($('#tbPassword').val());
 
@@ -70,7 +87,7 @@
             dto.AccountType = "admin";
             // Get
             postJson('/home/home/signin', JSON.stringify(dto)).done((response) => {
-   
+
                 if (response.status == 200) {
                     localStorage.setItem('admin_token', response.token);
                     localStorage.setItem('api', response.apiLink);

@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     @Styles.Render("~/Areas/Admin/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
@@ -30,21 +31,78 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
 </head>
+<style>
+    #toolT .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    #toolT:hover .tooltiptext {
+        visibility: visible;
+    }
+</style>
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+    @* Dito yung navbar *@
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <i class='bx bx-menu h3'></i><br />
+            <div id="toolT"><i class='bx bx-menu h3'></i><span class="tooltiptext" style=" background-color: #414141">Menu</span></div>  <br /> <br /> <img class="img-fluid st-dominic-logo" src="~/Images/st-dom-logo.png" style="background-size: 20px; float: left; margin-right: 25px; width: 10%; height: 10%; ">
+
+            <!--<div class="tooltip" style="color: black!important"><i class='bx bx-menu h3'></i>
+        <span class="tooltiptext">menu</span>
+    </div>-->
+            <!--f-->
+
+            <h1 class="display-1 font-weight-normal text-center text-black " style="background-color: transparent; color: black; font-size: 17px; -webkit-text-stroke: 0px black; -webkit-text-fill-color: black; text-align: center; vertical-align: middle; margin: 0 450px; padding: 0; font-family: 'Century Gothic', sans-serif;">
+                <link href="https://fonts.googleapis.com/css2?family=Century+Gothic&display=swap" rel="stylesheet">
+
+
+            </h1>
+            <br />
+
+            <script>
+
+
+                function display_ct6() {
+                    var x = new Date()
+                    var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
+                    hours = x.getHours() % 12;
+                    hours = hours ? hours : 12;
+                    var x1 = x.getMonth() + 1 + "/" + x.getDate() + "/" + x.getFullYear();
+                    x1 = x1 + " - " + hours + ":" + x.getMinutes() + ":" + x.getSeconds() + ":" + ampm;
+                    //document.getElementById('ct6').innerHTML = x1;
+                    document.getElementById('ct6').innerHTML = moment().format('dddd, MMM DD, YYYY - h:m:s A');
+                    display_c6();
+                }
+
+                function display_c6() {
+                    var refresh = 1000; // Refresh rate in milli seconds
+                    mytime = setTimeout('display_ct6()', refresh)
+                }
+
+                display_c6()
+
+            </script>
+
+            <span id='ct6' style="background-color: transparent"></span>
             @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("About", "About", new { controller = "Home" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Contact", "Contact", new { controller = "Home" }, new { @class = "nav-link" })</li>
-                    </ul>
-                </div>*@
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("About", "About", new { controller = "Home" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Contact", "Contact", new { controller = "Home" }, new { @class = "nav-link" })</li>
+            </ul>
+        </div>*@
             <div class="d-flex ms-auto">
 
                 <button class="btn carret-arrow text-dark border-none me-3" type="button">
@@ -63,8 +121,8 @@
     </div>
 
     <div class="sidebar close">
-        <div class="container-fluid">
-            <img class="img-fluid dashboard-p-image" src="~/Images/default-profile.png" /><br />
+        <div class="container-fluid"><br />
+            <img class="img-fluid dashboard-p-image" src="~/Images/default-profile.png" /><br /><br />
             <p class="text-white text-center a-display-name"></p>
         </div>
         @*<div class="logo-details">
@@ -72,215 +130,176 @@
                 <span class="logo_name">Coder Rist</span>
             </div>*@
 
-        <ul class="nav-links">
+    <ul class="nav-links">
 
-            @*<li>
-                    <a href="/Admin/Dashboard/Profile" class="text-decoration-none">
-                        <i class="fa fa-user h4 m-0 p-2" aria-hidden="true"></i>
-                        <span class="link_name">Admin Profile</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="/Admin/Dashboard/Profile">Admin Profile</a></li>
-                    </ul>
-                </li>*@
+        @*<li>
+           <a href="/Admin/Dashboard/Profile" class="text-decoration-none">
+           <i class="fa fa-user h4 m-0 p-2" aria-hidden="true"></i>
+           <span class="link_name">Admin Profile</span>
+           </a>
+           <ul class="sub-menu blank">
+           <li><a class="link_name" href="/Admin/Dashboard/Profile">Admin Profile</a></li>
+           </ul>
+        </li>*@
 
-            <li>
-                <a href="/Admin/Dashboard/Status" class="text-decoration-none">
-                    <i class="fa fa-users h4 m-0 p-2" aria-hidden="true"></i>
-                    <span class="link_name">Referral Form Queueing Status</span>
+        <li>
+            <a href="/Admin/Dashboard/Dashboard" class="text-decoration-none">
+                <i class="fa fa-tachometer h4 m-0 p-2" aria-hidden="true"></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/Admin/Dashboard/Dashboard">Dashboard</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="/Admin/Dashboard/Status" class="text-decoration-none">
+                <i class="fa fa-users h4 m-0 p-2" aria-hidden="true"></i>
+                <span class="link_name">Referral Form Queueing Status</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/Admin/Dashboard/Status">Referral Form Queueing Status</a></li>
+            </ul>
+        </li>
+
+        <!--<li>
+            <a href="/" class="my-1 text-decoration-none btn-admin-logout">
+                <i class="fa fa-sign-out h4 m-0 p-2" aria-hidden="true"></i>
+                <span class="link_name">Logout</span>
+            </a>
+
+            <ul class="sub-menu blank">
+                <li><a class="link_name my-1 text-decoration-none btn-admin-logout" href="/">Logout</a></li>
+            </ul>
+        </li>-->
+        @*<li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-book-alt'></i>
+                    <span class="link_name">Posts</span>
                 </a>
-
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="/Admin/Dashboard/Status">Referral Form Queueing Status</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="/Admin/Dashboard/Dashboard" class="text-decoration-none">
-                    <i class="fa fa-tachometer h4 m-0 p-2" aria-hidden="true"></i>
-                    <span class="link_name">Dashboard</span>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name" href="#">Posts</a></li>
+                <li><a href="#">Web Design</a></li>
+                <li><a href="#">Login Form</a></li>
+                <li><a href="#">Card Design</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-pie-chart-alt-2'></i>
+                <span class="link_name">Analytics</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Analytics</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-line-chart'></i>
+                <span class="link_name">Chart</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Chart</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='bx bx-plug'></i>
+                    <span class="link_name">Plugins</span>
                 </a>
-
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="/Admin/Dashboard/Dashboard">Dashboard</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="/" class="my-1 text-decoration-none btn-admin-logout">
-                    <i class="fa fa-sign-out h4 m-0 p-2" aria-hidden="true"></i>
-                    <span class="link_name">Logout</span>
-                </a>
-
-                <ul class="sub-menu blank">
-                    <li><a class="link_name my-1 text-decoration-none btn-admin-logout" href="/">Logout</a></li>
-                </ul>
-            </li>
-
-            @*<li>
-                    <div class="iocn-link">
-                        <a href="#">
-                            <i class='bx bx-book-alt'></i>
-                            <span class="link_name">Posts</span>
-                        </a>
-                        <i class='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Posts</a></li>
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Login Form</a></li>
-                        <li><a href="#">Card Design</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-pie-chart-alt-2'></i>
-                        <span class="link_name">Analytics</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Analytics</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-line-chart'></i>
-                        <span class="link_name">Chart</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Chart</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="iocn-link">
-                        <a href="#">
-                            <i class='bx bx-plug'></i>
-                            <span class="link_name">Plugins</span>
-                        </a>
-                        <i class='bx bxs-chevron-down arrow'></i>
-                    </div>
-                    <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Plugins</a></li>
-                        <li><a href="#">UI Face</a></li>
-                        <li><a href="#">Pigments</a></li>
-                        <li><a href="#">Box Icons</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-compass'></i>
-                        <span class="link_name">Explore</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Explore</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-history'></i>
-                        <span class="link_name">History</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">History</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-cog'></i>
-                        <span class="link_name">Setting</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Setting</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="profile-details">
-                        <div class="profile-content">
-                            <img src="image/profile.jpg" alt="profileImg">
-                        </div>
-                        <div class="name-job">
-                            <div class="profile_name">Prem Shahi</div>
-                            <div class="job">Web Desginer</div>
-                        </div>
-                        <i class='bx bx-log-out'></i>
-                    </div>
-                </li>*@
-        </ul>
-    </div>
-
-    <section class="home-section">
-
-        <div class="home-content">
-
-
-
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My Application</p>
-            </footer>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name" href="#">Plugins</a></li>
+                <li><a href="#">UI Face</a></li>
+                <li><a href="#">Pigments</a></li>
+                <li><a href="#">Box Icons</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-compass'></i>
+                <span class="link_name">Explore</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Explore</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-history'></i>
+                <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">History</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-cog'></i>
+                <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="image/profile.jpg" alt="profileImg">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">Prem Shahi</div>
+                    <div class="job">Web Desginer</div>
+                </div>
+                <i class='bx bx-log-out'></i>
+            </div>
+        </li>*@
+    </ul>
         </div>
-    </section>
+
+        <section class="home-section">
+
+            <div class="home-content">
 
 
-    <script>
 
-        setTimeout(function () {
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - My Application</p>
+                </footer>
+            </div>
+        </section>
 
-            $(".dataTables_filter").find("input").attr("readonly", "");
-            $(".dataTables_filter").find("input").on("click", function () {
-                $(this).removeAttr("readonly")
-            });
-            $(".dataTables_filter").find("input").css({
-                "background-color": "white"
-            });
 
-        }, 300);
-    </script>
-    <script>
-        $(function () {
+        <script>
 
-            let containerNotification = "";
+            setTimeout(function () {
 
-            $.ajax({
-                url: '/dashboard/get-admin-by-id',
-                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
-                method: 'GET',
-                //data: {
-                //    DateFrom: _DateFrom,
-                //    DateTo: _DateTo,
-                //    SelectBy: selectBy,
+                $(".dataTables_filter").find("input").attr("readonly", "");
+                $(".dataTables_filter").find("input").on("click", function () {
+                    $(this).removeAttr("readonly")
+                });
+                $(".dataTables_filter").find("input").css({
+                    "background-color": "white"
+                });
 
-                //},
+            }, 300);
+        </script>
+        <script>
+            $(function () {
 
-            }).done(function (res) {
-
-                $(".admin-name").text(res.APName);
-                $(".a-display-name").text(res.APName);
-
-                if (res.APImageName != null) {
-
-                    $(".dashboard-p-image").attr("src", localStorage.getItem('api') + "images/" + res.APImageName);
-
-                }
-
-            }).fail(function (err) {
-                console.log("error: ", err)
-
-            });
-
-            //for carret button
-            $("button.carret-arrow").on("click", function (e) {
-                e.preventDefault();
-
-                if (containerNotification == "" || containerNotification == "carret") {
-                    if (containerNotification == "carret") {
-                        containerNotification = "";
-                    }
-                    $("div.container-notification").toggleClass("d-none");
-                }
+                let containerNotification = "";
 
                 $.ajax({
-                    url: '/dashboard/admin-carret-field',
+                    url: '/dashboard/get-admin-by-id',
                     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
                     method: 'GET',
                     //data: {
@@ -289,37 +308,75 @@
                     //    SelectBy: selectBy,
 
                     //},
-                    dataType: 'html'
-                }).done(function (resp) {
 
-                    $("div.container-notification").html(resp);
+                }).done(function (res) {
+
+                    $(".admin-name").text(res.APName);
+                    $(".a-display-name").text(res.APName);
+
+                    if (res.APImageName != null) {
+
+                        $(".dashboard-p-image").attr("src", localStorage.getItem('api') + "images/" + res.APImageName);
+
+                    }
 
                 }).fail(function (err) {
                     console.log("error: ", err)
 
                 });
 
+                //for carret button
+                $("button.carret-arrow").on("click", function (e) {
+                    e.preventDefault();
+
+                    if (containerNotification == "" || containerNotification == "carret") {
+                        if (containerNotification == "carret") {
+                            containerNotification = "";
+                        }
+                        $("div.container-notification").toggleClass("d-none");
+                    }
+
+                    $.ajax({
+                        url: '/dashboard/admin-carret-field',
+                        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+                        method: 'GET',
+                        //data: {
+                        //    DateFrom: _DateFrom,
+                        //    DateTo: _DateTo,
+                        //    SelectBy: selectBy,
+
+                        //},
+                        dataType: 'html'
+                    }).done(function (resp) {
+
+                        $("div.container-notification").html(resp);
+
+                    }).fail(function (err) {
+                        console.log("error: ", err)
+
+                    });
+
+                });
+
             });
+        </script>
 
-        });
-    </script>
+        <script>
+            let arrow = document.querySelectorAll(".arrow");
+            for (var i = 0; i < arrow.length; i++) {
+                arrow[i].addEventListener("click", (e) => {
+                    let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+                    arrowParent.classList.toggle("showMenu");
+                });
+            }
 
-    <script>
-        let arrow = document.querySelectorAll(".arrow");
-        for (var i = 0; i < arrow.length; i++) {
-            arrow[i].addEventListener("click", (e) => {
-                let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-                arrowParent.classList.toggle("showMenu");
+            let sidebar = document.querySelector(".sidebar");
+            let sidebarBtn = document.querySelector(".bx-menu");
+            console.log(sidebarBtn);
+            sidebarBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("close");
             });
-        }
-
-        let sidebar = document.querySelector(".sidebar");
-        let sidebarBtn = document.querySelector(".bx-menu");
-        console.log(sidebarBtn);
-        sidebarBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
-        });
-    </script>
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+        </script>
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>
