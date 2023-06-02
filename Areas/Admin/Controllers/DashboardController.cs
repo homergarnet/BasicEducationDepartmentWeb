@@ -160,6 +160,129 @@ namespace BasicEducationDepartmentWeb.Areas.Admin.Controllers
 
         }
 
+        [HttpGet, Route("get-analytics-for-category")]
+        public PartialViewResult GetAnalyticsForCategory()
+        {
+
+            try
+            {
+
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetAnalyticsForCategory();
+                return PartialView(@"~/Areas/Admin/Views/Dashboard/_analyticsCategoryList.cshtml", response);
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView();
+
+            }
+
+        }
+
+        [HttpGet, Route("get-academic-concern-graph")]
+        public JsonResult GetAcademicConcernGraph()
+        {
+
+            try
+            {
+
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetAcademicConcernGraph();
+                return Json(response, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        [HttpGet, Route("get-mood-behavior-graph")]
+        public JsonResult GetMoodBehaviorGraph()
+        {
+
+            try
+            {
+
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetMoodBehaviorGraph();
+                return Json(response, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        [HttpGet, Route("get-relationship-graph")]
+        public JsonResult GetRelationshipGraph()
+        {
+
+            try
+            {
+
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetRelationshipGraph();
+                return Json(response, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        [HttpGet, Route("get-home-concern-graph")]
+        public JsonResult GetHomeConcernGraph()
+        {
+
+            try
+            {
+       
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetHomeConcernGraph();
+                return Json(response, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        [HttpGet, Route("get-most-pick-reasons")]
+        public PartialViewResult GetMostPickReasons()
+        {
+
+            try
+            {
+
+                var svc = new AdminProfileSvc(Sessions.AdminToken);
+                var response = svc.GetMostPickReasons();
+                return PartialView(@"~/Areas/Admin/Views/Dashboard/_mostPickReason.cshtml", response);
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView();
+
+            }
+
+        }
+
+
         public ActionResult Status() => View();
 
 

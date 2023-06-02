@@ -88,10 +88,10 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "gulp develop --continue-on-error --skip-minification --skip-standalone",
+    "start": "node init && gulp develop --continue-on-error --skip-minification --skip-standalone",
     "fix:lint": "eslint --fix .",
     "test": "npm run build && npm run check",
-    "build": "gulp build",
+    "build": "node init && gulp build",
     "check": "npm run check:lint && npm run check:require-in-node && npm run check:qunit && npm run check:qunit:minified && npm run check:ts",
     "check:sauce": "npm run check:qunit:sauce && npm run check:qunit:minified:sauce",
     "check:lint": "gulp lint",

@@ -2179,6 +2179,8 @@
     <Content Include="Areas\Admin\Views\Dashboard\ChangePassword.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ForgotPassword.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ResetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_analyticsCategoryList.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_mostPickReason.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

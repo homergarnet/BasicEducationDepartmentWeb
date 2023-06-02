@@ -9,79 +9,79 @@ else
 {
     foreach (var row in Model)
     {
-        <tr>
-            <td>@row.StudentTrackingNumber</td>
-            <td>@row.StudentName</td>
-            <td>@row.APEmailAddress</td>
-            <td>
-                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
-                {
+<tr>
+    <td>@row.StudentTrackingNumber</td>
+    <td>@row.StudentName</td>
+    <td>@row.APEmailAddress</td>
+    <td>
+        @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Moods/Behaviors"))
+        {
 
                     <p class=""> Mood Behaviors</p>
 
-                }
+        }
 
-                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
-                {
+        @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Academic Concerns"))
+        {
 
                     <p> Academic Concerns</p>
 
-                }
+        }
 
-                @if (row.StudentRelationship != null || row.StudentRelationship != "")
-                {
+        @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Relationship"))
+        {
 
                     <p> Relationship</p>
 
-                }
+        }
 
-                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
-                {
+        @if (row.StudentReasonForReferral != null && row.StudentReasonForReferral.Contains("Home Concerns"))
+        {
 
                     <p> Home Concerns</p>
 
-                }
-            </td>
-            <td>
-                @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
-                {
+        }
+    </td>
+    <td>
+        @if (row.StudentMoodBehaviors != null || row.StudentMoodBehaviors != "")
+        {
 
-                    <p>@row.StudentMoodBehaviors</p>
+            <p>@row.StudentMoodBehaviors</p>
 
-                }
+        }
 
-                @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
-                {
+        @if (row.StudentAcademicConcerns != null || row.StudentAcademicConcerns != "")
+        {
 
-                    <p>@row.StudentAcademicConcerns</p>
+            <p>@row.StudentAcademicConcerns</p>
 
-                }
+        }
 
-                @if (row.StudentRelationship != null || row.StudentRelationship != "")
-                {
+        @if (row.StudentRelationship != null || row.StudentRelationship != "")
+        {
 
-                    <p>@row.StudentRelationship</p>
+            <p>@row.StudentRelationship</p>
 
-                }
+        }
 
-                @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
-                {
+        @if (row.StudentHomeConcerns != null || row.StudentHomeConcerns != "")
+        {
 
-                    <p>@row.StudentHomeConcerns</p>
+            <p>@row.StudentHomeConcerns</p>
 
-                }
-            </td>
-            <td>
-                @if (row.StudentStatus == null || row.StudentStatus == "")
-                {
-                    <p>Pending</p>
-                }
-                else
-                {
-                    <p>@row.StudentStatus</p>
-                }
-            </td>
-            <td>@row.StudentAcknowledgeByName</td>
-        </tr>
+        }
+    </td>
+    <td>
+        @if (row.StudentStatus == null || row.StudentStatus == "")
+        {
+            <p>Pending</p>
+        }
+        else
+        {
+            <p>@row.StudentStatus</p>
+        }
+    </td>
+    <td>@row.StudentAcknowledgeByName</td>
+</tr>
     }
 }

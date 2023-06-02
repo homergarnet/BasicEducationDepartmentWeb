@@ -1,0 +1,32 @@
+﻿@model BasicEducationDepartmentWeb.Models.DTO.AnalyticsCategoryDTO
+
+@{ 
+    string moodBehaviorFormatted = Model.MoodBehaviorsPercentage.ToString("0");
+    string academicConcernFormatted = Model.AcademicConcernsPercentage.ToString("0");
+    string relationshipFormatted = Model.RelationshipPercentage.ToString("0");
+    string homeConcernFormatted = Model.HomeConcernsPercentage.ToString("0");
+}
+
+<tr>
+    <td>Academic Concerns</td>
+    <td>@Model.AcademicConcernsTotal</td>
+    <td>
+        @moodBehaviorFormatted<span>%</span>
+    </td>
+</tr>
+<tr>
+    <td>Moods/Behaviors</td>
+    <td>@Model.MoodBehaviorsTotal</td>
+    <td>@academicConcernFormatted<span>%</span></td>
+</tr>
+<tr>
+    <td>Relationship</td>
+    <td>@Model.RelationshipTotal</td>
+    <td>@relationshipFormatted<span>%</span></td>
+</tr>
+<tr>
+    <td>Home Concerns</td>
+    <td>@Model.HomeConcernsTotal</td>
+    <td>@homeConcernFormatted<span>%</span></td>
+</tr>
+
