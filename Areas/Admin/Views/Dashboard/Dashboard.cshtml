@@ -45,15 +45,79 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-2">
         <div class="col">
             <canvas id="myChart" width="400" height="150"></canvas>
         </div>
     </div>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="custom-scrollbar justify-content-center mb-3">
+                <table class="table table-hover table-stripped" id="tblAnalyticsCategory">
+                    <thead class="table-head table-dark">
+                        <tr>
+                            <th scope="col">Reason For Category</th>
+                            <th scope="col">Total For Category</th>
+                            <th scope="col">Total Category Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tAnalyticsCategoryList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <canvas id="academicConcerns"></canvas>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <canvas id="moodBehaviors"></canvas>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <canvas id="relationship"></canvas>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <canvas id="homeConcerns"></canvas>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <canvas id="referralFormChart"></canvas>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="custom-scrollbar justify-content-center mb-3">
+                <table class="table table-hover table-stripped" id="tblMostPicupReason">
+                    <thead class="table-head table-dark">
+                        <tr>
+                            <th scope="col">Reason For Category</th>
+                            <th scope="col">Total Submitted For Category</th>
+                            <th scope="col">Total Weekly Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tMostPickupReason"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
     $(document).ready(function () {
+
         $.ajax({
 
             url: '/dashboard/get-total-referral-form-count',
@@ -85,5 +149,296 @@
             console.log(err);
 
         });
+
+        getAnalyticsCategoryList();
+
+        function getAnalyticsCategoryList() {
+
+            const tAnalyticsCategoryList = $('#tAnalyticsCategoryList');
+
+            tAnalyticsCategoryList.html('');
+            table = $('#tblAnalyticsCategory').DataTable().destroy();
+
+            const _DateFrom = $.trim($('#txtStartDate').val());
+            const _DateTo = $.trim($('#txtEndDate').val());
+            const selectBy = $.trim($('.select-by').val());
+
+
+            $.ajax({
+                url: '/dashboard/get-analytics-for-category',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+                dataType: 'html'
+            }).done(function (resp) {
+
+                tAnalyticsCategoryList.html(resp);
+
+                table = $('#tblAnalyticsCategory').DataTable(
+                    {
+                        //"order": [[0, "asc"]],
+                        "ordering": false
+                    });
+            }).fail(function (err) {
+                console.log("error: ", err)
+                table = $('#tblAnalyticsCategory').DataTable().destroy();
+            });
+        }
+
+        concernGraph();
+
+        function concernGraph() {
+
+            //Academic Concerns
+
+            $.ajax({
+
+                url: '/dashboard/get-academic-concern-graph',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+            }).then(function (res) {
+
+                let labels = [];
+                labels[0] = "Homework not turned in/incomplete";
+                labels[1] = "Low test/assignment grades";
+                labels[2] = "Poor classroom performance";
+                labels[3] = "Sleeping in class/always tired";
+                labels[4] = "Sudden change in grades";
+                labels[5] = "Frequently tardy of absent";
+                labels[6] = "New student";
+                labels[7] = "Other";
+                let data = [];
+                data[0] = res.HomeworkNotTurnedInIncomplete;
+                data[1] = res.LongTestAssignmentGrades;
+                data[2] = res.PoorClassroomPerformance;
+                data[3] = res.SleepingInClassAlwaysTired;
+                data[4] = res.SuddenChangeInGrades;
+                data[5] = res.FrequentlyTardyOfAbsent;
+                data[6] = res.NewStudent;
+                data[7] = res.Others;
+
+                concernBarChartJs('academicConcerns', 'bar', labels, 'Academic Concerns', data);
+
+            }).fail(function (err) {
+
+                console.log(err);
+
+            });
+
+            //Mood/Behavior
+
+            $.ajax({
+
+                url: '/dashboard/get-mood-behavior-graph',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+            }).then(function (res) {
+
+                let labels = [];
+                labels[0] = "Anxious/worried";
+                labels[1] = "Depressed";
+                labels[2] = "Eating Disorder";
+                labels[3] = "Body image concerns";
+                labels[4] = "Hyperactive/Inattentive";
+                labels[5] = "Shy/Withdraw";
+                labels[6] = "Low Self-esteem";
+                labels[7] = "Aggresive Behaviors";
+                labels[8] = "Stealing";
+                labels[9] = "Other";
+                let data = [];
+                data[0] = res.AnxiousWorried;
+                data[1] = res.Depressed;
+                data[2] = res.EatingDisorder;
+                data[3] = res.BodyImageConcerns;
+                data[4] = res.HyperactiveInattentive;
+                data[5] = res.ShyWithdraw;
+                data[6] = res.LowSelfEsteem;
+                data[7] = res.AggresiveBehaviors;
+                data[8] = res.Stealing;
+                data[9] = res.Others;
+
+                concernBarChartJs('moodBehaviors', 'bar', labels, 'Moods/Behaviors', data);
+
+            }).fail(function (err) {
+
+                console.log(err);
+
+            });
+
+            //relationship
+
+            $.ajax({
+
+                url: '/dashboard/get-relationship-graph',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+            }).then(function (res) {
+
+                let labels = [];
+                labels[0] = "Difficulty making friends";
+                labels[1] = "Poor social skills";
+                labels[2] = "Problem with friends";
+                labels[3] = "Boy/Girl friend issues";
+                labels[4] = "Other";
+                let data = [];
+                data[0] = res.DifficultyMakingFriends;
+                data[1] = res.PoorSocialSkills;
+                data[2] = res.ProblemWithFriends;
+                data[3] = res.BoyGirlFriendIssues;
+                data[4] = res.Others;
+
+
+                concernBarChartJs('relationship', 'bar', labels, 'Relationship', data);
+
+            }).fail(function (err) {
+
+                console.log(err);
+
+            });
+
+            //Home Concerns
+
+            $.ajax({
+
+                url: '/dashboard/get-home-concern-graph',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+            }).then(function (res) {
+
+                let labels = [];
+                labels[0] = "Fighting with family members";
+                labels[1] = "Illness/death in the family";
+                labels[2] = "Parents divorced/separated";
+                labels[3] = "Suspected abuse";
+                labels[4] = "Suspected substance abuse";
+                labels[5] = "Parent request";
+                labels[6] = "Other";
+                let data = [];
+                data[0] = res.FightingWithFamilyMembers;
+                data[1] = res.IllnessDeathInTheFamily;
+                data[2] = res.ParentsDivorcedSeperated;
+                data[3] = res.SuspectedAbuse;
+                data[4] = res.SuspectedSubstanceAbuse;
+                data[5] = res.ParentRequest;
+                data[6] = res.Others;
+
+
+                concernBarChartJs('homeConcerns', 'bar', labels, 'Home Concerns', data);
+
+            }).fail(function (err) {
+
+                console.log(err);
+
+            });
+
+            //Referral Form Graph
+
+            $.ajax({
+
+                url: localStorage.getItem('api') + '/api/get-referral-form-graph',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+            }).then(function (res) {
+
+                let labels = [];
+                labels[0] = "Jan";
+                labels[1] = "Feb";
+                labels[2] = "Mar";
+                labels[3] = "Apr";
+                labels[4] = "May";
+                labels[5] = "Jun";
+                labels[6] = "Jul";
+                labels[7] = "Aug";
+                labels[8] = "Sep";
+                labels[9] = "Oct";
+                labels[10] = "Nov";
+                labels[11] = "Dec";
+
+                concernMultipleBarChartJs('referralFormChart', 'bar', labels, res);
+              
+
+            }).fail(function (err) {
+            
+                console.log(err);
+
+            });
+
+            //for mostPickupReasons
+
+            const tMostPickupReason = $('#tMostPickupReason');
+
+            tMostPickupReason.html('');
+            table = $('#tblMostPicupReason').DataTable().destroy();
+
+            $.ajax({
+                url: '/dashboard/get-most-pick-reasons',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('admin_token') },
+                method: 'GET',
+                //data: {
+                //    DateFrom: _DateFrom,
+                //    DateTo: _DateTo,
+                //    SelectBy: selectBy,
+
+                //},
+                dataType: 'html'
+            }).done(function (resp) {
+
+                tMostPickupReason.html(resp);
+
+                table = $('#tblMostPicupReason').DataTable(
+                    {
+                        //"order": [[0, "asc"]],
+                        "ordering": false
+                    });
+            }).fail(function (err) {
+                console.log("error: ", err)
+                table = $('#tblMostPicupReason').DataTable().destroy();
+            });
+
+        }
+
+
+
+
     });
 </script>

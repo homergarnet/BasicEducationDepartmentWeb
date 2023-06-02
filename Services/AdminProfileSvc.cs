@@ -110,5 +110,112 @@ namespace BasicEducationDepartmentWeb.Services
 
         }
 
+        public AnalyticsCategoryDTO GetAnalyticsForCategory()
+        {
+
+            var result = new AnalyticsCategoryDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-analytics-for-category");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<AnalyticsCategoryDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetAnalyticsForCategory | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
+
+        public AcademicConcernDTO GetAcademicConcernGraph()
+        {
+
+            var result = new AcademicConcernDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-academic-concern-graph");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<AcademicConcernDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetAcademicConcernGraph | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
+
+        public MoodBehaviorDTO GetMoodBehaviorGraph()
+        {
+
+            var result = new MoodBehaviorDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-mood-behavior-graph");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<MoodBehaviorDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetMoodBehaviorGraph | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
+
+        public RelationshipDTO GetRelationshipGraph()
+        {
+
+            var result = new RelationshipDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-relationship-graph");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<RelationshipDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetRelationshipGraph | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
+
+        public HomeConcernsDTO GetHomeConcernGraph()
+        {
+
+            var result = new HomeConcernsDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-home-concern-graph");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<HomeConcernsDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetHomeConcernGraph | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
+
+        public MostPickReasonsDTO GetMostPickReasons()
+        {
+
+            var result = new MostPickReasonsDTO();
+            HttpResponseCustom response = _httpRequest.Get($"{_api}api/get-most-pick-reasons");
+
+            if (response.StatusCode == 200)
+                result = response.Result.Deserialize<MostPickReasonsDTO>();
+            else
+            {
+                _responseMessage = response.Result;
+                _logger.LogEvents($"Error on Get GetMostPickReasons | response: {response.Serialize()}");
+            }
+
+            return result;
+
+        }
     }
 }

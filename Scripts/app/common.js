@@ -313,4 +313,130 @@ function doughnutChartJs(ctx, type, labels, label, data) {
             }
         }
     });
+
 }
+
+function concernBarChartJs(ctx, type, labels, label, data) {
+
+    const barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: label,
+                    data: data,
+                    backgroundColor: [
+                        'rgba(103,162,201)',
+                        'rgba(23,179,163)',
+                        'rgba(227,123,123)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(153, 102, 122, 0.2)',
+                        'rgba(153, 100, 200, 0.2)',
+                    ],
+                    borderWidth: 1
+                },
+                
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Months'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Data Values'
+                    }
+                }
+            }
+        }
+    });
+
+}
+
+function concernMultipleBarChartJs(ctx, type, labels, data2D) {
+    const barChart = new Chart(ctx, {
+
+        type: type,
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Home Concerns',
+                    data: data2D[0],
+                    backgroundColor: [
+                        'rgba(103,162,201)',
+                        'rgba(23,179,163)',
+                        'rgba(227,123,123)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Moods/Behaviors',
+                    data: data2D[1],
+                    backgroundColor: [
+                        'rgba(103,162,201)',
+                        'rgba(23,179,163)',
+                        'rgba(227,123,123)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Academic Concerns',
+                    data: data2D[2],
+                    backgroundColor: [
+                        'rgba(103,162,201)',
+                        'rgba(23,179,163)',
+                        'rgba(227,123,123)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Relationship',
+                    data: data2D[3],
+                    backgroundColor: [
+                        'rgba(103,162,201)',
+                        'rgba(23,179,163)',
+                        'rgba(227,123,123)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Months'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Data Values'
+                    }
+                }
+            }
+        }
+    });
+
+}
+
